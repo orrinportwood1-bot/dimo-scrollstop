@@ -206,8 +206,14 @@
     display: flex;
     gap: 36px;
     align-items: center;
+    list-style: none;
+    margin: 0;
+    padding: 0;
   }
-  .nav-links a {
+  .nav-links > li {
+    position: relative;
+  }
+  .nav-links > li > a {
     font-family: var(--mono);
     font-size: 0.72rem;
     text-transform: uppercase;
@@ -217,9 +223,10 @@
     padding: 6px 2px;
     position: relative;
     text-shadow: 0 1px 10px rgba(0,0,0,0.3);
+    display: inline-block;
   }
-  .nav-links a:hover { color: #fff; }
-  .nav-links a:not(.nav-cta)::after {
+  .nav-links > li > a:hover { color: #fff; }
+  .nav-links > li > a:not(.nav-cta)::after {
     content: "";
     position: absolute;
     left: 0; right: 100%;
@@ -228,7 +235,7 @@
     background: currentColor;
     transition: right 0.4s var(--ease);
   }
-  .nav-links a:not(.nav-cta):hover::after { right: 0; }
+  .nav-links > li > a:not(.nav-cta):hover::after { right: 0; }
   .nav-cta {
     background: #ffffff;
     color: #0a0a0a !important;
@@ -240,12 +247,114 @@
     background: var(--accent-deep);
     color: #fff !important;
   }
+
+  /* Dropdown */
+  .has-dropdown > a::before {
+    content: "";
+    display: inline-block;
+    width: 6px;
+    height: 6px;
+    border-right: 1px solid currentColor;
+    border-bottom: 1px solid currentColor;
+    transform: rotate(45deg) translate(-2px, -1px);
+    margin-right: 6px;
+    opacity: 0.6;
+    transition: transform 0.3s var(--ease), opacity 0.3s var(--ease);
+  }
+  .has-dropdown:hover > a::before {
+    transform: rotate(225deg) translate(-1px, -1px);
+    opacity: 1;
+  }
+  .dropdown {
+    position: absolute;
+    top: calc(100% + 14px);
+    left: 50%;
+    transform: translate(-50%, -8px);
+    background: rgba(255, 255, 255, 0.96);
+    backdrop-filter: blur(20px) saturate(160%);
+    -webkit-backdrop-filter: blur(20px) saturate(160%);
+    border: 1px solid var(--border);
+    box-shadow: 0 24px 60px -20px rgba(0, 0, 0, 0.18), 0 1px 2px rgba(0, 0, 0, 0.04);
+    padding: 28px 30px 24px;
+    min-width: 280px;
+    opacity: 0;
+    pointer-events: none;
+    transition: opacity 0.32s var(--ease), transform 0.32s var(--ease);
+    z-index: 1100;
+  }
+  /* Hover bridge so dropdown stays open while moving from trigger */
+  .has-dropdown::after {
+    content: "";
+    position: absolute;
+    top: 100%;
+    left: 0; right: 0;
+    height: 18px;
+    pointer-events: none;
+  }
+  .has-dropdown:hover::after,
+  .has-dropdown:focus-within::after { pointer-events: auto; }
+  .has-dropdown:hover .dropdown,
+  .has-dropdown:focus-within .dropdown {
+    opacity: 1;
+    pointer-events: auto;
+    transform: translate(-50%, 0);
+  }
+  .dropdown-eyebrow {
+    display: block;
+    font-family: var(--mono);
+    font-size: 0.6rem;
+    text-transform: uppercase;
+    letter-spacing: 0.28em;
+    color: var(--text-3);
+    font-weight: 500;
+    margin-bottom: 18px;
+    padding-bottom: 14px;
+    border-bottom: 1px solid var(--border);
+  }
+  .dropdown-list {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    display: grid;
+    column-gap: 36px;
+    row-gap: 9px;
+  }
+  .dropdown[data-cols="2"] .dropdown-list { grid-template-columns: 1fr 1fr; min-width: 360px; }
+  .dropdown[data-cols="3"] .dropdown-list { grid-template-columns: 1fr 1fr 1fr; min-width: 540px; }
+  .dropdown-list li { margin: 0; }
+  .dropdown-list a {
+    font-family: var(--serif);
+    font-size: 1rem;
+    color: var(--text);
+    transition: color 0.25s ease, padding-left 0.25s var(--ease);
+    display: block;
+    padding: 4px 0;
+    position: relative;
+  }
+  .dropdown-list a::before {
+    content: "";
+    position: absolute;
+    left: 0;
+    top: 50%;
+    width: 0;
+    height: 1px;
+    background: var(--accent-deep);
+    transition: width 0.3s var(--ease);
+  }
+  .dropdown-list a:hover {
+    color: var(--accent-deep);
+    padding-left: 14px;
+  }
+  .dropdown-list a:hover::before {
+    width: 8px;
+  }
+
   /* Scrolled (white pill) state: switch to dark links */
-  #navbar.nav-scrolled .nav-links a {
+  #navbar.nav-scrolled .nav-links > li > a {
     color: var(--text-2);
     text-shadow: none;
   }
-  #navbar.nav-scrolled .nav-links a:hover { color: var(--text); }
+  #navbar.nav-scrolled .nav-links > li > a:hover { color: var(--text); }
   #navbar.nav-scrolled .nav-cta {
     background: var(--text);
     color: var(--bg) !important;
@@ -254,6 +363,7 @@
     background: var(--accent-deep);
     color: #fff !important;
   }
+  #navbar.nav-scrolled .has-dropdown > a::before { opacity: 0.5; }
 
   /* ---------- HERO ---------- */
   #hero {
@@ -276,20 +386,21 @@
     position: absolute;
     inset: 0;
     width: 100%;
-    height: 100%;
+    /* Extra height so parallax translation never reveals an edge */
+    height: 130%;
+    top: -15%;
     object-fit: cover;
     object-position: center 50%;
     filter: contrast(1.04) brightness(0.86) saturate(1.0);
-    transform: scale(1.04);
-    animation: heroDriftIn 1.6s var(--ease) 0.1s both, heroDrift 22s ease-in-out 1.7s infinite alternate;
+    /* JS sets --parallax-y on scroll; transform combines parallax + slight scale */
+    transform: translate3d(0, var(--parallax-y, 0px), 0) scale(1.06);
+    will-change: transform;
+    opacity: 0;
+    animation: heroFadeIn 1.4s var(--ease) 0.1s forwards;
   }
-  @keyframes heroDriftIn {
-    from { opacity: 0; transform: scale(1.12); }
-    to   { opacity: 1; transform: scale(1.04); }
-  }
-  @keyframes heroDrift {
-    from { transform: scale(1.04) translateY(0); }
-    to   { transform: scale(1.07) translateY(-1.5%); }
+  @keyframes heroFadeIn {
+    from { opacity: 0; }
+    to   { opacity: 1; }
   }
   /* Vignette: keep the building visible at the top, only darken at edges
      and behind the text/CTA area at the bottom. */
@@ -1104,6 +1215,83 @@
   .cta-meta a:hover { color: var(--text); }
 
   /* ---------- FOOTER ---------- */
+  /* ---------- FOOTER HERO (PARALLAX) ---------- */
+  .footer-hero {
+    position: relative;
+    height: 78vh;
+    min-height: 520px;
+    overflow: hidden;
+    background: #0a0a0a;
+    isolation: isolate;
+  }
+  .footer-photo {
+    position: absolute;
+    left: 0;
+    top: -15%;
+    width: 100%;
+    height: 130%;
+    object-fit: cover;
+    object-position: center 50%;
+    filter: contrast(1.04) brightness(0.55) saturate(1.0);
+    transform: translate3d(0, var(--parallax-y-footer, 0px), 0) scale(1.08);
+    will-change: transform;
+    z-index: 0;
+  }
+  .footer-hero-veil {
+    position: absolute;
+    inset: 0;
+    z-index: 1;
+    background:
+      radial-gradient(ellipse 160% 110% at 50% 50%, transparent 0%, transparent 35%, rgba(10,10,10,0.45) 92%, rgba(10,10,10,0.65) 100%),
+      linear-gradient(180deg, rgba(10,10,10,0.30) 0%, rgba(10,10,10,0.10) 30%, rgba(10,10,10,0.10) 60%, rgba(10,10,10,0.55) 100%);
+    pointer-events: none;
+  }
+  .footer-hero-content {
+    position: relative;
+    z-index: 2;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    color: #ffffff;
+    padding: 32px;
+    gap: 24px;
+  }
+  .footer-hero-eyebrow {
+    color: rgba(255,255,255,0.78);
+    text-shadow: 0 1px 12px rgba(0,0,0,0.35);
+  }
+  .footer-hero-title {
+    font-size: clamp(2.6rem, 6vw, 5rem);
+    line-height: 0.98;
+    font-weight: 400;
+    letter-spacing: -0.02em;
+    color: #ffffff;
+    text-shadow: 0 2px 30px rgba(0,0,0,0.4);
+    max-width: 900px;
+  }
+  .footer-hero-title em {
+    font-style: italic;
+    font-weight: 300;
+    color: #d6d2c8;
+  }
+  .footer-hero-meta {
+    font-family: var(--mono);
+    font-size: 0.7rem;
+    text-transform: uppercase;
+    letter-spacing: 0.22em;
+    color: rgba(255,255,255,0.78);
+    line-height: 2;
+    text-shadow: 0 1px 10px rgba(0,0,0,0.35);
+    margin-top: 8px;
+  }
+  @media (max-width: 768px) {
+    .footer-hero { height: 64vh; min-height: 440px; }
+    .footer-hero-meta { line-height: 1.9; font-size: 0.65rem; }
+  }
+
   footer {
     border-top: 1px solid var(--border);
     background: var(--bg-soft);
@@ -1208,12 +1396,63 @@
 <nav id="navbar">
   <div class="nav-inner">
     <a href="#" class="nav-logo">D <span class="script">imo</span></a>
-    <div class="nav-links">
-      <a href="#scroll-section">The Solitaire</a>
-      <a href="#features">Atelier</a>
-      <a href="#collections">Collections</a>
-      <a href="#cta" class="nav-cta">Visit</a>
-    </div>
+    <ul class="nav-links">
+      <li class="has-dropdown">
+        <a href="#brands">Jewelry</a>
+        <div class="dropdown" data-cols="3">
+          <span class="dropdown-eyebrow">Designer Houses</span>
+          <ul class="dropdown-list">
+            <li><a href="#">Roberto Coin</a></li>
+            <li><a href="#">Le Vian</a></li>
+            <li><a href="#">Simon G</a></li>
+            <li><a href="#">FOPE</a></li>
+            <li><a href="#">John Hardy</a></li>
+            <li><a href="#">Chimento</a></li>
+            <li><a href="#">Annamaria Cammilli</a></li>
+            <li><a href="#">Scott Kay</a></li>
+            <li><a href="#">William Henry</a></li>
+            <li><a href="#">Pierre Rossa</a></li>
+            <li><a href="#">Emma Rose</a></li>
+            <li><a href="#">Dimo Collection</a></li>
+          </ul>
+        </div>
+      </li>
+      <li class="has-dropdown">
+        <a href="#brands">Timepieces</a>
+        <div class="dropdown" data-cols="2">
+          <span class="dropdown-eyebrow">Watch Brands</span>
+          <ul class="dropdown-list">
+            <li><a href="#">Omega</a></li>
+            <li><a href="#">Breitling</a></li>
+            <li><a href="#">Tag Heuer</a></li>
+            <li><a href="#">Raymond Weil</a></li>
+            <li><a href="#">Michele</a></li>
+            <li><a href="#">Luminox</a></li>
+            <li><a href="#">Victorinox Swiss Army</a></li>
+            <li><a href="#">Seiko</a></li>
+            <li><a href="#">Citizen</a></li>
+            <li><a href="#">Pre-Owned Collection</a></li>
+          </ul>
+        </div>
+      </li>
+      <li><a href="#scroll-section">Bridal</a></li>
+      <li class="has-dropdown">
+        <a href="#features">Services</a>
+        <div class="dropdown" data-cols="2">
+          <span class="dropdown-eyebrow">In-House</span>
+          <ul class="dropdown-list">
+            <li><a href="#">Custom Design</a></li>
+            <li><a href="#">Heritage Services</a></li>
+            <li><a href="#">Jewelry Repair</a></li>
+            <li><a href="#">Watch Repair</a></li>
+            <li><a href="#">Engraving</a></li>
+            <li><a href="#">Appraisals</a></li>
+            <li><a href="#">We Buy Gold</a></li>
+          </ul>
+        </div>
+      </li>
+      <li><a href="#cta" class="nav-cta">Contact</a></li>
+    </ul>
   </div>
 </nav>
 
@@ -1301,52 +1540,52 @@
 
     <!-- Annotation cards (mapped to motion arc) -->
     <div class="annotation-card" data-show="0.04" data-hide="0.22">
-      <div class="card-number">01 — The Cut</div>
-      <h3 class="card-title">The Round <em>Brilliant</em></h3>
-      <p class="card-desc">Fifty-eight facets, hand-cut to mathematic ideal. The cut returns more light to the eye than any in jewelry, by design.</p>
+      <div class="card-number">01 — Bridal</div>
+      <h3 class="card-title">Begin a <em>forever</em></h3>
+      <p class="card-desc">Engagement rings, wedding bands, and certified loose diamonds — sourced, set, and inspected in person by a family of jewelers.</p>
       <div class="card-stat">
-        <span class="card-stat-number">58</span>
-        <span class="card-stat-label">Cut Facets</span>
+        <span class="card-stat-number">100<span class="suffix">%</span></span>
+        <span class="card-stat-label">Conflict-Free Stones</span>
       </div>
     </div>
 
     <div class="annotation-card" data-show="0.26" data-hide="0.44">
-      <div class="card-number">02 — The Setting</div>
-      <h3 class="card-title">Hand-Set <em>Solitaire</em></h3>
-      <p class="card-desc">Four hand-formed prongs cradle the diamond at the corners, raising it into the daylight — every claw seated by hand.</p>
+      <div class="card-number">02 — Designer Houses</div>
+      <h3 class="card-title">Twelve <em>master ateliers</em></h3>
+      <p class="card-desc">Roberto Coin · Le Vian · Simon G · FOPE · John Hardy · Chimento — twelve houses in residence at one Gainesville address.</p>
       <div class="card-stat">
-        <span class="card-stat-number">4</span>
-        <span class="card-stat-label">Cathedral Prongs</span>
-      </div>
-    </div>
-
-    <div class="annotation-card" data-show="0.48" data-hide="0.66">
-      <div class="card-number">03 — Architecture</div>
-      <h3 class="card-title">Cathedral <em>Profile</em></h3>
-      <p class="card-desc">From the side, the band rises in a quiet arch — the gallery lifted, the stone airborne. Strength shaped to disappear.</p>
-      <div class="card-stat">
-        <span class="card-stat-number">18<span class="suffix">K</span></span>
-        <span class="card-stat-label">White Gold</span>
-      </div>
-    </div>
-
-    <div class="annotation-card" data-show="0.70" data-hide="0.84">
-      <div class="card-number">04 — Composition</div>
-      <h3 class="card-title">Suspended in <em>Light</em></h3>
-      <p class="card-desc">Held mid-air. The proportions are settled — band, gallery, stone — finished by the hands of master jewelers in fourteen ateliers.</p>
-      <div class="card-stat">
-        <span class="card-stat-number">14</span>
+        <span class="card-stat-number">12</span>
         <span class="card-stat-label">Designer Houses</span>
       </div>
     </div>
 
-    <div class="annotation-card" data-show="0.88" data-hide="1.01">
-      <div class="card-number">05 — The Moment</div>
-      <h3 class="card-title">Brilliance <em>Unleashed</em></h3>
-      <p class="card-desc">A piece arrives once. Built once. Worn for a lifetime — and the one after. This is the moment Dimo was made for.</p>
+    <div class="annotation-card" data-show="0.48" data-hide="0.66">
+      <div class="card-number">03 — Timepieces</div>
+      <h3 class="card-title">Time, <em>kept well</em></h3>
+      <p class="card-desc">Omega, Breitling, Tag Heuer — ten luxury houses plus a curated pre-owned wall, every piece serviced on a watchmaker's bench.</p>
       <div class="card-stat">
-        <span class="card-stat-number">∞</span>
-        <span class="card-stat-label">Forever Pledge</span>
+        <span class="card-stat-number">10<span class="suffix">+</span></span>
+        <span class="card-stat-label">Watch Brands</span>
+      </div>
+    </div>
+
+    <div class="annotation-card" data-show="0.70" data-hide="0.84">
+      <div class="card-number">04 — Custom Design</div>
+      <h3 class="card-title">From sketch <em>to setting</em></h3>
+      <p class="card-desc">Bring an heirloom stone, a sentiment, or a sketch on a napkin. We translate — your piece, made for you, signed by hand.</p>
+      <div class="card-stat">
+        <span class="card-stat-number">1</span>
+        <span class="card-stat-label">Of One — Always</span>
+      </div>
+    </div>
+
+    <div class="annotation-card" data-show="0.88" data-hide="1.01">
+      <div class="card-number">05 — Heritage Service</div>
+      <h3 class="card-title">We <em>stay</em></h3>
+      <p class="card-desc">Repair, engraving, appraisal, and gold buying — generations of craft, kept available the moment you walk back through the door.</p>
+      <div class="card-stat">
+        <span class="card-stat-number">7</span>
+        <span class="card-stat-label">In-House Services</span>
       </div>
     </div>
   </div>
@@ -1501,6 +1740,17 @@
   </div>
 </section>
 
+<!-- Footer hero image (parallax) -->
+<section class="footer-hero" aria-label="Dimo Fine Jewelry showroom">
+  <img class="footer-photo" src="assets/dimo-storefront-detail.webp" alt="Inside the Dimo Fine Jewelry showroom" />
+  <div class="footer-hero-veil"></div>
+  <div class="footer-hero-content">
+    <span class="eyebrow footer-hero-eyebrow">Visit Us</span>
+    <h2 class="footer-hero-title">In <em>person.</em><br/>Always in person.</h2>
+    <p class="footer-hero-meta">1318 Browns Bridge Road · Gainesville, Georgia<br/>Mon – Sat · 10am – 6pm · 770 · 533 · 9070</p>
+  </div>
+</section>
+
 <!-- Footer -->
 <footer>
   <div class="footer-inner">
@@ -1557,6 +1807,10 @@
   const cards = document.querySelectorAll(".annotation-card");
   const railTicks = document.querySelectorAll(".rail-tick");
   const railNum = document.getElementById("railNum");
+  const heroPhoto = document.querySelector(".hero-photo");
+  const footerHero = document.querySelector(".footer-hero");
+  const footerPhoto = document.querySelector(".footer-photo");
+  const reduceMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
 
   /* ---------- FRAME PRELOAD ---------- */
   const frames = [];
@@ -1691,6 +1945,21 @@
 
       // navbar pill
       navbar.classList.toggle("nav-scrolled", window.scrollY > 80);
+
+      // Parallax
+      if (!reduceMotion) {
+        const sy = window.scrollY;
+        if (heroPhoto && sy < window.innerHeight * 1.6) {
+          heroPhoto.style.setProperty("--parallax-y", (sy * 0.30) + "px");
+        }
+        if (footerPhoto && footerHero) {
+          const fr = footerHero.getBoundingClientRect();
+          if (fr.top < window.innerHeight && fr.bottom > 0) {
+            const into = window.innerHeight - fr.top;
+            footerPhoto.style.setProperty("--parallax-y-footer", -(into * 0.18) + "px");
+          }
+        }
+      }
 
       ticking = false;
     });
