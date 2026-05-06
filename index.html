@@ -1,0 +1,1750 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+<title>Dimo Fine Jewelry — Premier Jeweler in Georgia</title>
+<meta name="description" content="Family-owned fine jeweler in Gainesville, Georgia, specializing in luxury timepieces, bridal jewelry and custom designs from master jewelers around the world." />
+
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;0,700;1,300;1,400&family=EB+Garamond:ital,wght@0,400;0,500;0,600;1,400&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet" />
+
+<link rel="icon" href="assets/dimo-logo-full.webp" type="image/webp" />
+
+<style>
+  /* ---------- TOKENS ---------- */
+  :root {
+    --bg: #ffffff;
+    --bg-soft: #fafafa;
+    --bg-tint: #f4f3f0;
+    --text: #0a0a0a;
+    --text-2: #4a4847;
+    --text-3: #8b8985;
+    --accent: #a8a6a1;
+    --accent-deep: #807e79;
+    --accent-rgb: 168, 166, 161;
+    --border: #e5e3de;
+    --border-strong: #c9c6c0;
+    --shadow-soft: 0 1px 2px rgba(0, 0, 0, 0.04), 0 12px 40px -16px rgba(0, 0, 0, 0.10);
+    --serif: "Cormorant Garamond", "EB Garamond", Georgia, "Times New Roman", serif;
+    --body: "EB Garamond", Georgia, "Times New Roman", serif;
+    --mono: "JetBrains Mono", ui-monospace, "SF Mono", Menlo, monospace;
+    --ease: cubic-bezier(0.16, 1, 0.3, 1);
+    --ease-in-out: cubic-bezier(0.65, 0, 0.35, 1);
+  }
+
+  *, *::before, *::after { box-sizing: border-box; }
+
+  html, body {
+    margin: 0;
+    padding: 0;
+    background: var(--bg);
+    color: var(--text);
+    font-family: var(--body);
+    font-size: 17px;
+    line-height: 1.6;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    text-rendering: optimizeLegibility;
+    scrollbar-gutter: stable;
+  }
+
+  body {
+    overflow-x: hidden;
+  }
+
+  ::selection { background: var(--text); color: var(--bg); }
+
+  /* Scrollbar */
+  body::-webkit-scrollbar { width: 10px; }
+  body::-webkit-scrollbar-track { background: var(--bg-soft); }
+  body::-webkit-scrollbar-thumb {
+    background: linear-gradient(180deg, var(--accent), var(--accent-deep));
+    border: 2px solid var(--bg-soft);
+  }
+  body::-webkit-scrollbar-thumb:hover { background: var(--text); }
+
+  a { color: inherit; text-decoration: none; }
+
+  h1, h2, h3, h4 {
+    font-family: var(--serif);
+    font-weight: 400;
+    letter-spacing: -0.01em;
+    margin: 0;
+    line-height: 1.05;
+  }
+
+  p { margin: 0; }
+
+  img { max-width: 100%; display: block; }
+
+  .eyebrow {
+    font-family: var(--mono);
+    font-size: 0.72rem;
+    text-transform: uppercase;
+    letter-spacing: 0.22em;
+    color: var(--text-3);
+    font-weight: 500;
+  }
+
+  /* ---------- SCROLL PROGRESS ---------- */
+  #scrollProgress {
+    position: fixed;
+    top: 0; left: 0;
+    height: 2px;
+    width: 0%;
+    background: linear-gradient(90deg, var(--text), var(--accent));
+    z-index: 10000;
+    transition: width 0.08s linear;
+  }
+
+  /* ---------- LOADER ---------- */
+  #loader {
+    position: fixed;
+    inset: 0;
+    background: var(--bg);
+    z-index: 9999;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: opacity 0.7s var(--ease);
+  }
+  .loader-content {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 28px;
+  }
+  .loader-logo {
+    width: 110px;
+    opacity: 0.92;
+    animation: loaderBreathe 2.4s ease-in-out infinite;
+  }
+  @keyframes loaderBreathe {
+    0%, 100% { opacity: 0.85; transform: scale(1); }
+    50% { opacity: 1; transform: scale(1.03); }
+  }
+  .loader-text {
+    font-family: var(--mono);
+    font-size: 0.7rem;
+    text-transform: uppercase;
+    letter-spacing: 0.3em;
+    color: var(--text-3);
+    margin: 0;
+  }
+  .loader-bar-track {
+    width: 220px;
+    height: 1px;
+    background: var(--border);
+    overflow: hidden;
+  }
+  .loader-bar-fill {
+    width: 0%;
+    height: 100%;
+    background: var(--text);
+    transition: width 0.25s ease;
+  }
+
+  /* ---------- NAVBAR ---------- */
+  #navbar {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    z-index: 1000;
+    transition: padding 0.45s var(--ease);
+    padding-top: 18px;
+  }
+  .nav-inner {
+    max-width: 100%;
+    margin: 0 auto;
+    padding: 18px 40px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    transition: all 0.45s var(--ease);
+    background: rgba(255, 255, 255, 0.0);
+    border: 1px solid transparent;
+  }
+  #navbar.nav-scrolled {
+    padding-top: 14px;
+  }
+  #navbar.nav-scrolled .nav-inner {
+    max-width: 880px;
+    padding: 12px 24px;
+    background: rgba(255, 255, 255, 0.78);
+    backdrop-filter: blur(18px) saturate(160%);
+    -webkit-backdrop-filter: blur(18px) saturate(160%);
+    border: 1px solid var(--border);
+    box-shadow: var(--shadow-soft);
+  }
+  .nav-logo {
+    font-family: var(--serif);
+    font-size: 1.5rem;
+    font-weight: 500;
+    letter-spacing: 0.32em;
+    color: #ffffff;
+    user-select: none;
+    text-transform: uppercase;
+    line-height: 1;
+    text-shadow: 0 1px 14px rgba(0,0,0,0.35);
+    transition: color 0.4s var(--ease), text-shadow 0.4s var(--ease);
+  }
+  .nav-logo span.script {
+    font-style: italic;
+    font-weight: 400;
+    letter-spacing: 0;
+    text-transform: none;
+    color: inherit;
+  }
+  #navbar.nav-scrolled .nav-logo {
+    color: var(--text);
+    text-shadow: none;
+  }
+  .nav-links {
+    display: flex;
+    gap: 36px;
+    align-items: center;
+  }
+  .nav-links a {
+    font-family: var(--mono);
+    font-size: 0.72rem;
+    text-transform: uppercase;
+    letter-spacing: 0.2em;
+    color: rgba(255,255,255,0.82);
+    transition: color 0.25s ease;
+    padding: 6px 2px;
+    position: relative;
+    text-shadow: 0 1px 10px rgba(0,0,0,0.3);
+  }
+  .nav-links a:hover { color: #fff; }
+  .nav-links a:not(.nav-cta)::after {
+    content: "";
+    position: absolute;
+    left: 0; right: 100%;
+    bottom: 0;
+    height: 1px;
+    background: currentColor;
+    transition: right 0.4s var(--ease);
+  }
+  .nav-links a:not(.nav-cta):hover::after { right: 0; }
+  .nav-cta {
+    background: #ffffff;
+    color: #0a0a0a !important;
+    padding: 10px 20px !important;
+    transition: all 0.3s ease !important;
+    text-shadow: none;
+  }
+  .nav-cta:hover {
+    background: var(--accent-deep);
+    color: #fff !important;
+  }
+  /* Scrolled (white pill) state: switch to dark links */
+  #navbar.nav-scrolled .nav-links a {
+    color: var(--text-2);
+    text-shadow: none;
+  }
+  #navbar.nav-scrolled .nav-links a:hover { color: var(--text); }
+  #navbar.nav-scrolled .nav-cta {
+    background: var(--text);
+    color: var(--bg) !important;
+  }
+  #navbar.nav-scrolled .nav-cta:hover {
+    background: var(--accent-deep);
+    color: #fff !important;
+  }
+
+  /* ---------- HERO ---------- */
+  #hero {
+    position: relative;
+    min-height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 120px 32px 80px;
+    overflow: hidden;
+    background: #0a0a0a;
+  }
+  .hero-bg {
+    position: absolute;
+    inset: 0;
+    pointer-events: none;
+    z-index: 0;
+  }
+  .hero-photo {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    object-position: center 50%;
+    filter: contrast(1.04) brightness(0.86) saturate(1.0);
+    transform: scale(1.04);
+    animation: heroDriftIn 1.6s var(--ease) 0.1s both, heroDrift 22s ease-in-out 1.7s infinite alternate;
+  }
+  @keyframes heroDriftIn {
+    from { opacity: 0; transform: scale(1.12); }
+    to   { opacity: 1; transform: scale(1.04); }
+  }
+  @keyframes heroDrift {
+    from { transform: scale(1.04) translateY(0); }
+    to   { transform: scale(1.07) translateY(-1.5%); }
+  }
+  /* Vignette: keep the building visible at the top, only darken at edges
+     and behind the text/CTA area at the bottom. */
+  .hero-vignette {
+    position: absolute;
+    inset: 0;
+    background:
+      radial-gradient(ellipse 170% 110% at 50% 55%, transparent 0%, transparent 38%, rgba(10,10,10,0.32) 92%, rgba(10,10,10,0.55) 100%),
+      linear-gradient(180deg, rgba(10,10,10,0.18) 0%, rgba(10,10,10,0.04) 22%, rgba(10,10,10,0.06) 48%, rgba(10,10,10,0.42) 82%, rgba(10,10,10,0.62) 100%);
+  }
+  .hero-grain {
+    position: absolute;
+    inset: 0;
+    opacity: 0.045;
+    mix-blend-mode: overlay;
+    background-image:
+      linear-gradient(rgba(255,255,255,0.6) 1px, transparent 1px),
+      linear-gradient(90deg, rgba(255,255,255,0.6) 1px, transparent 1px);
+    background-size: 80px 80px;
+    mask-image: radial-gradient(ellipse at center, #000 30%, transparent 80%);
+    -webkit-mask-image: radial-gradient(ellipse at center, #000 30%, transparent 80%);
+  }
+
+  .hero-content {
+    position: relative;
+    z-index: 1;
+    max-width: 980px;
+    width: 100%;
+    text-align: center;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 28px;
+  }
+  .hero-mark {
+    width: 96px;
+    margin-bottom: 4px;
+    opacity: 0;
+    filter: brightness(0) invert(1) drop-shadow(0 1px 18px rgba(0,0,0,0.4));
+    animation: fadeUp 1s var(--ease) 0.1s forwards;
+  }
+  .hero-eyebrow {
+    opacity: 0;
+    color: rgba(255,255,255,0.78);
+    animation: fadeUp 1s var(--ease) 0.25s forwards;
+  }
+  .hero-title {
+    font-size: clamp(3.4rem, 9vw, 7.6rem);
+    line-height: 0.96;
+    letter-spacing: -0.025em;
+    font-weight: 400;
+    color: #ffffff;
+    text-shadow: 0 2px 30px rgba(0,0,0,0.35);
+    opacity: 0;
+    animation: fadeUp 1.1s var(--ease) 0.4s forwards;
+  }
+  .hero-title em {
+    font-style: italic;
+    font-weight: 300;
+    color: #d6d2c8;
+  }
+  .hero-divider {
+    width: 1px;
+    height: 64px;
+    background: linear-gradient(180deg, transparent, rgba(255,255,255,0.55), transparent);
+    margin: 8px 0;
+    opacity: 0;
+    animation: fadeIn 1s var(--ease) 0.7s forwards;
+  }
+  .hero-subtitle {
+    max-width: 580px;
+    color: rgba(255,255,255,0.82);
+    font-size: 1.18rem;
+    line-height: 1.65;
+    opacity: 0;
+    text-shadow: 0 1px 12px rgba(0,0,0,0.3);
+    animation: fadeUp 1s var(--ease) 0.8s forwards;
+  }
+  .hero-buttons {
+    display: flex;
+    gap: 18px;
+    flex-wrap: wrap;
+    justify-content: center;
+    margin-top: 12px;
+    opacity: 0;
+    animation: fadeUp 1s var(--ease) 1s forwards;
+  }
+  .btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 12px;
+    font-family: var(--mono);
+    font-size: 0.72rem;
+    text-transform: uppercase;
+    letter-spacing: 0.22em;
+    padding: 18px 32px;
+    border: 1px solid var(--text);
+    transition: all 0.4s var(--ease);
+    cursor: pointer;
+    background: transparent;
+  }
+  .btn-primary {
+    background: var(--text);
+    color: var(--bg);
+  }
+  .btn-primary:hover {
+    background: transparent;
+    color: var(--text);
+  }
+  .btn-secondary {
+    background: transparent;
+    color: var(--text);
+    border-color: var(--border-strong);
+  }
+  .btn-secondary:hover {
+    border-color: var(--text);
+    background: var(--text);
+    color: var(--bg);
+  }
+  .btn .arrow {
+    width: 14px; height: 1px;
+    background: currentColor;
+    position: relative;
+    transition: width 0.4s var(--ease);
+  }
+  .btn .arrow::after {
+    content: "";
+    position: absolute;
+    right: 0; top: -3px;
+    width: 7px; height: 7px;
+    border-top: 1px solid currentColor;
+    border-right: 1px solid currentColor;
+    transform: rotate(45deg);
+  }
+  .btn:hover .arrow { width: 22px; }
+
+  .scroll-hint {
+    margin-top: 32px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 14px;
+    opacity: 0;
+    animation: fadeIn 1s var(--ease) 1.5s forwards;
+  }
+  .scroll-hint span {
+    font-family: var(--mono);
+    font-size: 0.62rem;
+    text-transform: uppercase;
+    letter-spacing: 0.3em;
+    color: rgba(255,255,255,0.65);
+  }
+  .scroll-line {
+    width: 1px; height: 48px;
+    background: linear-gradient(180deg, transparent, rgba(255,255,255,0.5));
+    position: relative;
+    overflow: hidden;
+  }
+  .scroll-line::before {
+    content: "";
+    position: absolute;
+    top: -100%;
+    left: 0; right: 0;
+    height: 50%;
+    background: linear-gradient(180deg, transparent, #ffffff);
+    animation: scrollDown 2.4s ease-in-out infinite;
+  }
+  /* Hero-only button overrides for dark photo background */
+  #hero .btn-primary {
+    background: #ffffff;
+    color: #0a0a0a;
+    border-color: #ffffff;
+  }
+  #hero .btn-primary:hover {
+    background: transparent;
+    color: #ffffff;
+  }
+  #hero .btn-secondary {
+    color: #ffffff;
+    border-color: rgba(255,255,255,0.5);
+  }
+  #hero .btn-secondary:hover {
+    border-color: #ffffff;
+    background: #ffffff;
+    color: #0a0a0a;
+  }
+
+  @keyframes scrollDown {
+    0% { top: -50%; }
+    100% { top: 110%; }
+  }
+  @keyframes fadeUp {
+    from { opacity: 0; transform: translateY(24px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+  @keyframes fadeIn {
+    from { opacity: 0; }
+    to { opacity: 1; }
+  }
+
+  /* ---------- INTRO TICKER ---------- */
+  .ticker-wrap {
+    position: relative;
+    overflow: hidden;
+    border-top: 1px solid var(--border);
+    border-bottom: 1px solid var(--border);
+    padding: 22px 0;
+    background: var(--bg-soft);
+  }
+  .ticker {
+    display: flex;
+    gap: 60px;
+    width: max-content;
+    animation: tickerScroll 50s linear infinite;
+  }
+  .ticker-item {
+    font-family: var(--serif);
+    font-size: 1.4rem;
+    font-style: italic;
+    color: var(--text-2);
+    white-space: nowrap;
+  }
+  .ticker-dot {
+    color: var(--accent);
+    font-style: normal;
+  }
+  @keyframes tickerScroll {
+    from { transform: translateX(0); }
+    to { transform: translateX(-50%); }
+  }
+
+  /* ---------- SCROLL ANIMATION ---------- */
+  .section-label {
+    text-align: center;
+    padding: 100px 32px 0;
+  }
+  .section-label .eyebrow { display: block; margin-bottom: 18px; }
+  .section-label h2 {
+    font-size: clamp(2.4rem, 5vw, 4rem);
+    font-weight: 400;
+    letter-spacing: -0.015em;
+    max-width: 800px;
+    margin: 0 auto;
+  }
+  .section-label h2 em { font-style: italic; color: var(--accent-deep); }
+
+  .scroll-animation {
+    height: 420vh;
+    position: relative;
+    background: var(--bg);
+  }
+  .scroll-sticky {
+    position: sticky;
+    top: 0;
+    height: 100vh;
+    width: 100%;
+    overflow: hidden;
+    background: var(--bg);
+  }
+  #frameCanvas {
+    position: absolute;
+    top: 0; left: 0;
+  }
+
+  .scroll-progress-rail {
+    position: absolute;
+    top: 50%;
+    right: 28px;
+    transform: translateY(-50%);
+    z-index: 12;
+    display: flex;
+    flex-direction: column;
+    gap: 14px;
+    align-items: center;
+  }
+  .rail-tick {
+    width: 1px;
+    height: 24px;
+    background: var(--border-strong);
+    position: relative;
+    transition: background 0.35s var(--ease);
+  }
+  .rail-tick.active { background: var(--text); }
+  .rail-tick.active::before {
+    content: "";
+    position: absolute;
+    top: 50%; left: 50%;
+    transform: translate(-50%, -50%);
+    width: 6px; height: 6px;
+    background: var(--text);
+    border-radius: 50%;
+  }
+  .rail-counter {
+    font-family: var(--mono);
+    font-size: 0.62rem;
+    color: var(--text-3);
+    margin-top: 14px;
+    letter-spacing: 0.1em;
+  }
+
+  /* Annotation cards */
+  .annotation-card {
+    position: absolute;
+    bottom: 8vh;
+    left: 5vw;
+    max-width: 380px;
+    background: rgba(255, 255, 255, 0.86);
+    backdrop-filter: blur(18px) saturate(140%);
+    -webkit-backdrop-filter: blur(18px) saturate(140%);
+    border: 1px solid var(--border);
+    padding: 28px 30px;
+    opacity: 0;
+    transform: translateY(20px);
+    transition: opacity 0.5s var(--ease), transform 0.5s var(--ease);
+    pointer-events: none;
+    z-index: 10;
+    box-shadow: var(--shadow-soft);
+  }
+  .annotation-card.visible {
+    opacity: 1;
+    transform: translateY(0);
+    pointer-events: auto;
+  }
+  .card-number {
+    font-family: var(--mono);
+    font-size: 0.7rem;
+    color: var(--accent-deep);
+    margin-bottom: 14px;
+    letter-spacing: 0.18em;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+  }
+  .card-number::after {
+    content: "";
+    flex: 1;
+    height: 1px;
+    background: var(--border);
+  }
+  .card-title {
+    font-family: var(--serif);
+    font-size: 1.7rem;
+    font-weight: 400;
+    margin-bottom: 10px;
+    line-height: 1.1;
+    letter-spacing: -0.01em;
+  }
+  .card-title em { font-style: italic; color: var(--accent-deep); }
+  .card-desc {
+    font-size: 0.95rem;
+    color: var(--text-2);
+    line-height: 1.55;
+    margin-bottom: 18px;
+  }
+  .card-stat {
+    display: flex;
+    align-items: baseline;
+    gap: 10px;
+    padding-top: 14px;
+    border-top: 1px solid var(--border);
+  }
+  .card-stat-number {
+    font-family: var(--serif);
+    font-size: 2rem;
+    font-weight: 500;
+    color: var(--text);
+    letter-spacing: -0.02em;
+  }
+  .card-stat-label {
+    font-family: var(--mono);
+    font-size: 0.65rem;
+    text-transform: uppercase;
+    letter-spacing: 0.18em;
+    color: var(--text-3);
+  }
+
+  /* Mobile annotation cards = compact horizontal */
+  @media (max-width: 820px) {
+    .annotation-card {
+      bottom: 2vh;
+      left: 4vw;
+      right: 4vw;
+      max-width: none;
+      padding: 14px 18px;
+      display: flex;
+      align-items: center;
+      gap: 14px;
+    }
+    .card-desc, .card-stat { display: none; }
+    .card-number { margin-bottom: 0; }
+    .card-number::after { display: none; }
+    .card-title { font-size: 1.1rem; margin: 0; }
+  }
+
+  /* ---------- SPECS ---------- */
+  #specs {
+    padding: 140px 32px 120px;
+    background: var(--bg-soft);
+    border-top: 1px solid var(--border);
+    border-bottom: 1px solid var(--border);
+  }
+  .specs-grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 0;
+    max-width: 1200px;
+    margin: 64px auto 0;
+    border-left: 1px solid var(--border);
+  }
+  .spec-item {
+    text-align: center;
+    padding: 56px 24px;
+    border-right: 1px solid var(--border);
+    border-top: 1px solid var(--border);
+    border-bottom: 1px solid var(--border);
+    background: var(--bg);
+    transition: background 0.4s var(--ease);
+  }
+  .spec-item:hover { background: var(--bg-soft); }
+
+  .spec-number {
+    font-family: var(--serif);
+    font-size: 4.4rem;
+    font-weight: 400;
+    line-height: 1;
+    display: block;
+    color: var(--text);
+    letter-spacing: -0.03em;
+    transition: color 0.4s var(--ease);
+  }
+  .spec-number .suffix {
+    font-size: 0.5em;
+    vertical-align: super;
+    color: var(--accent-deep);
+    margin-left: 2px;
+  }
+  .spec-number.counting { color: var(--accent-deep); }
+  .spec-divider {
+    width: 28px;
+    height: 1px;
+    background: var(--accent);
+    margin: 18px auto 14px;
+  }
+  .spec-label {
+    font-family: var(--mono);
+    font-size: 0.7rem;
+    text-transform: uppercase;
+    letter-spacing: 0.2em;
+    color: var(--text-3);
+    display: block;
+  }
+
+  @media (max-width: 768px) {
+    .specs-grid { grid-template-columns: repeat(2, 1fr); }
+    .spec-number { font-size: 3.4rem; }
+  }
+
+  /* ---------- FEATURES ---------- */
+  #features {
+    padding: 140px 32px 100px;
+    background: var(--bg);
+  }
+  .features-head {
+    max-width: 900px;
+    margin: 0 auto 72px;
+    text-align: center;
+  }
+  .features-head h2 {
+    font-size: clamp(2.4rem, 5vw, 4rem);
+    font-weight: 400;
+    margin-top: 18px;
+    letter-spacing: -0.015em;
+  }
+  .features-head h2 em { font-style: italic; color: var(--accent-deep); }
+  .features-head p {
+    margin-top: 22px;
+    color: var(--text-2);
+    max-width: 600px;
+    margin-left: auto;
+    margin-right: auto;
+    font-size: 1.1rem;
+  }
+  .features-grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 0;
+    max-width: 1200px;
+    margin: 0 auto;
+    border-top: 1px solid var(--border);
+    border-left: 1px solid var(--border);
+  }
+  .feature-card {
+    border-right: 1px solid var(--border);
+    border-bottom: 1px solid var(--border);
+    padding: 48px 36px;
+    background: var(--bg);
+    transition: background 0.4s var(--ease);
+    display: flex;
+    flex-direction: column;
+    gap: 18px;
+    min-height: 320px;
+    position: relative;
+    overflow: hidden;
+  }
+  .feature-card:hover { background: var(--bg-soft); }
+  .feature-card::before {
+    content: "";
+    position: absolute;
+    top: 0; left: 0;
+    width: 0; height: 1px;
+    background: var(--text);
+    transition: width 0.6s var(--ease);
+  }
+  .feature-card:hover::before { width: 100%; }
+  .feature-num {
+    font-family: var(--mono);
+    font-size: 0.7rem;
+    color: var(--accent-deep);
+    letter-spacing: 0.18em;
+  }
+  .feature-card h3 {
+    font-family: var(--serif);
+    font-size: 1.7rem;
+    font-weight: 400;
+    line-height: 1.1;
+    letter-spacing: -0.01em;
+    margin-top: auto;
+  }
+  .feature-card h3 em { font-style: italic; color: var(--accent-deep); }
+  .feature-card p {
+    color: var(--text-2);
+    font-size: 0.98rem;
+    line-height: 1.55;
+  }
+  @media (max-width: 1024px) { .features-grid { grid-template-columns: repeat(2, 1fr); } }
+  @media (max-width: 600px)  { .features-grid { grid-template-columns: 1fr; } }
+
+  /* ---------- COLLECTIONS GALLERY ---------- */
+  #collections {
+    padding: 140px 32px 120px;
+    background: var(--bg);
+    border-top: 1px solid var(--border);
+  }
+  .collections-head {
+    max-width: 1200px;
+    margin: 0 auto 72px;
+    text-align: center;
+  }
+  .collections-head h2 {
+    font-size: clamp(2.4rem, 5vw, 4rem);
+    font-weight: 400;
+    margin-top: 18px;
+    letter-spacing: -0.015em;
+  }
+  .collections-head h2 em { font-style: italic; color: var(--accent-deep); }
+  .collections-head p {
+    margin: 22px auto 0;
+    color: var(--text-2);
+    max-width: 620px;
+    font-size: 1.1rem;
+  }
+  .collections-grid {
+    max-width: 1280px;
+    margin: 0 auto;
+    display: grid;
+    grid-template-columns: 1.25fr 1fr;
+    grid-template-rows: auto auto;
+    gap: 18px;
+  }
+  .collection-tile {
+    position: relative;
+    overflow: hidden;
+    background: var(--bg-soft);
+    aspect-ratio: 4/5;
+    display: block;
+    cursor: pointer;
+    isolation: isolate;
+  }
+  .collection-tile.tile-wide {
+    grid-row: span 2;
+    aspect-ratio: 3/5;
+  }
+  .collection-tile img {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    transform: scale(1.02);
+    transition: transform 1.4s var(--ease), filter 0.6s var(--ease);
+    filter: grayscale(0.05);
+    z-index: 0;
+  }
+  .collection-tile::after {
+    content: "";
+    position: absolute;
+    inset: 0;
+    z-index: 1;
+    background: linear-gradient(180deg, rgba(10,10,10,0.0) 35%, rgba(10,10,10,0.55) 100%);
+    transition: background 0.6s var(--ease);
+  }
+  .collection-tile:hover img {
+    transform: scale(1.08);
+    filter: grayscale(0);
+  }
+  .collection-tile:hover::after {
+    background: linear-gradient(180deg, rgba(10,10,10,0.05) 0%, rgba(10,10,10,0.7) 100%);
+  }
+  .collection-meta {
+    position: absolute;
+    left: 32px;
+    right: 32px;
+    bottom: 28px;
+    z-index: 2;
+    color: #fff;
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+  }
+  .collection-meta .eyebrow {
+    color: rgba(255,255,255,0.78);
+    font-size: 0.66rem;
+  }
+  .collection-meta h3 {
+    font-family: var(--serif);
+    font-size: clamp(1.6rem, 2.3vw, 2.4rem);
+    font-weight: 400;
+    line-height: 1.05;
+    letter-spacing: -0.01em;
+    color: #fff;
+  }
+  .collection-meta h3 em {
+    font-style: italic;
+    color: #e8e4d8;
+  }
+  .collection-meta .collection-cta {
+    margin-top: 8px;
+    font-family: var(--mono);
+    font-size: 0.66rem;
+    text-transform: uppercase;
+    letter-spacing: 0.24em;
+    color: rgba(255,255,255,0.85);
+    display: inline-flex;
+    align-items: center;
+    gap: 10px;
+    transform: translateX(0);
+    transition: transform 0.5s var(--ease), color 0.4s var(--ease);
+  }
+  .collection-meta .collection-cta::after {
+    content: "→";
+    font-family: var(--serif);
+    font-size: 1rem;
+    transition: transform 0.5s var(--ease);
+  }
+  .collection-tile:hover .collection-cta { color: #fff; }
+  .collection-tile:hover .collection-cta::after { transform: translateX(6px); }
+
+  @media (max-width: 900px) {
+    .collections-grid {
+      grid-template-columns: 1fr;
+    }
+    .collection-tile.tile-wide { grid-row: auto; aspect-ratio: 4/5; }
+    .collection-meta { left: 22px; right: 22px; bottom: 22px; }
+  }
+
+  /* ---------- HERITAGE STRIP (full-bleed photo band) ---------- */
+  #heritage-strip {
+    position: relative;
+    height: 70vh;
+    min-height: 480px;
+    overflow: hidden;
+    background: #0a0a0a;
+  }
+  #heritage-strip img {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    object-position: center 60%;
+    filter: brightness(0.7) contrast(1.04);
+  }
+  .heritage-overlay {
+    position: absolute;
+    inset: 0;
+    background:
+      linear-gradient(180deg, rgba(10,10,10,0.35) 0%, transparent 30%, rgba(10,10,10,0.55) 100%);
+  }
+  .heritage-content {
+    position: relative;
+    z-index: 2;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    padding: 0 32px;
+    color: #fff;
+  }
+  .heritage-content .eyebrow { color: rgba(255,255,255,0.7); margin-bottom: 22px; }
+  .heritage-content h2 {
+    font-family: var(--serif);
+    font-size: clamp(2.2rem, 5vw, 3.8rem);
+    font-weight: 400;
+    line-height: 1.05;
+    letter-spacing: -0.015em;
+    color: #fff;
+    max-width: 820px;
+  }
+  .heritage-content h2 em { font-style: italic; color: #e8e4d8; }
+  .heritage-content p {
+    margin-top: 20px;
+    color: rgba(255,255,255,0.82);
+    max-width: 560px;
+    font-size: 1.08rem;
+  }
+
+  /* ---------- BRAND PARTNERS ---------- */
+  #brands {
+    padding: 100px 32px;
+    background: var(--bg-soft);
+    border-top: 1px solid var(--border);
+    text-align: center;
+  }
+  #brands h3 {
+    font-family: var(--mono);
+    font-size: 0.72rem;
+    text-transform: uppercase;
+    letter-spacing: 0.3em;
+    color: var(--text-3);
+    font-weight: 500;
+    margin-bottom: 50px;
+  }
+  .brands-row {
+    max-width: 1100px;
+    margin: 0 auto;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-around;
+    align-items: center;
+    gap: 20px 30px;
+  }
+  .brand-name {
+    font-family: var(--serif);
+    font-style: italic;
+    font-size: 1.5rem;
+    color: var(--text-2);
+    letter-spacing: 0.02em;
+    transition: color 0.3s ease, transform 0.4s var(--ease);
+  }
+  .brand-name:hover { color: var(--text); transform: translateY(-2px); }
+
+  /* ---------- CTA ---------- */
+  #cta {
+    position: relative;
+    padding: 160px 32px;
+    text-align: center;
+    overflow: hidden;
+    background: var(--bg);
+    border-top: 1px solid var(--border);
+  }
+  .cta-bg-orb {
+    position: absolute;
+    width: 800px; height: 800px;
+    background: radial-gradient(circle, var(--accent), transparent 70%);
+    border-radius: 50%;
+    filter: blur(140px);
+    top: 50%; left: 50%;
+    transform: translate(-50%, -50%);
+    opacity: 0.32;
+    pointer-events: none;
+  }
+  .cta-content {
+    position: relative;
+    z-index: 1;
+    max-width: 720px;
+    margin: 0 auto;
+  }
+  .cta-content h2 {
+    font-size: clamp(2.6rem, 6vw, 5.2rem);
+    font-weight: 400;
+    margin-top: 22px;
+    line-height: 1;
+    letter-spacing: -0.025em;
+  }
+  .cta-content h2 em { font-style: italic; color: var(--accent-deep); }
+  .cta-content > p {
+    margin-top: 28px;
+    color: var(--text-2);
+    font-size: 1.18rem;
+  }
+  .cta-buttons {
+    margin-top: 42px;
+    display: flex;
+    gap: 16px;
+    justify-content: center;
+    flex-wrap: wrap;
+  }
+  .cta-meta {
+    margin-top: 56px;
+    display: flex;
+    gap: 32px;
+    justify-content: center;
+    flex-wrap: wrap;
+    font-family: var(--mono);
+    font-size: 0.7rem;
+    text-transform: uppercase;
+    letter-spacing: 0.2em;
+    color: var(--text-3);
+  }
+  .cta-meta a:hover { color: var(--text); }
+
+  /* ---------- FOOTER ---------- */
+  footer {
+    border-top: 1px solid var(--border);
+    background: var(--bg-soft);
+    padding: 80px 32px 40px;
+  }
+  .footer-inner {
+    max-width: 1200px;
+    margin: 0 auto;
+    display: grid;
+    grid-template-columns: 1.4fr 1fr 1fr 1fr;
+    gap: 60px;
+  }
+  .footer-brand img {
+    width: 130px;
+    margin-bottom: 16px;
+  }
+  .footer-brand p {
+    font-size: 0.95rem;
+    color: var(--text-2);
+    line-height: 1.6;
+    max-width: 320px;
+  }
+  .footer-col h4 {
+    font-family: var(--mono);
+    font-size: 0.68rem;
+    text-transform: uppercase;
+    letter-spacing: 0.22em;
+    color: var(--text-3);
+    margin-bottom: 22px;
+    font-weight: 500;
+  }
+  .footer-col ul { list-style: none; padding: 0; margin: 0; }
+  .footer-col li { margin-bottom: 12px; }
+  .footer-col a {
+    font-size: 0.95rem;
+    color: var(--text);
+    transition: color 0.25s ease;
+  }
+  .footer-col a:hover { color: var(--accent-deep); }
+  .footer-col p {
+    font-size: 0.95rem;
+    color: var(--text);
+    margin-bottom: 8px;
+  }
+  .footer-bottom {
+    max-width: 1200px;
+    margin: 60px auto 0;
+    padding-top: 30px;
+    border-top: 1px solid var(--border);
+    display: flex;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    gap: 16px;
+    font-family: var(--mono);
+    font-size: 0.68rem;
+    text-transform: uppercase;
+    letter-spacing: 0.18em;
+    color: var(--text-3);
+  }
+  @media (max-width: 900px) {
+    .footer-inner { grid-template-columns: 1fr 1fr; }
+  }
+  @media (max-width: 540px) {
+    .footer-inner { grid-template-columns: 1fr; }
+  }
+
+  /* ---------- RESPONSIVE NAV ---------- */
+  @media (max-width: 768px) {
+    .nav-links { display: none; }
+    .nav-inner { padding: 14px 20px; }
+    #navbar.nav-scrolled .nav-inner { max-width: 92%; }
+  }
+
+  /* ---------- MISC ---------- */
+  .no-scroll { overflow: hidden !important; }
+
+  /* Reduced motion */
+  @media (prefers-reduced-motion: reduce) {
+    *, *::before, *::after {
+      animation-duration: 0.01ms !important;
+      animation-iteration-count: 1 !important;
+      transition-duration: 0.01ms !important;
+    }
+  }
+</style>
+</head>
+<body>
+
+<!-- Loader -->
+<div id="loader">
+  <div class="loader-content">
+    <img class="loader-logo" src="assets/dimo-logo-full.webp" alt="Dimo Fine Jewelry" />
+    <p class="loader-text">A Forever Brilliance</p>
+    <div class="loader-bar-track"><div class="loader-bar-fill" id="loaderBar"></div></div>
+  </div>
+</div>
+
+<!-- Scroll progress -->
+<div id="scrollProgress"></div>
+
+<!-- Navbar -->
+<nav id="navbar">
+  <div class="nav-inner">
+    <a href="#" class="nav-logo">D <span class="script">imo</span></a>
+    <div class="nav-links">
+      <a href="#scroll-section">The Solitaire</a>
+      <a href="#features">Atelier</a>
+      <a href="#collections">Collections</a>
+      <a href="#cta" class="nav-cta">Visit</a>
+    </div>
+  </div>
+</nav>
+
+<!-- Hero -->
+<section id="hero">
+  <div class="hero-bg">
+    <img
+      class="hero-photo"
+      src="assets/dimo-hero-building.webp"
+      onerror="this.onerror=null;this.src='assets/dimo-storefront-detail.webp';"
+      alt="The Dimo Fine Jewelry showroom in Gainesville, Georgia"
+    />
+    <div class="hero-vignette"></div>
+    <div class="hero-grain"></div>
+  </div>
+  <div class="hero-content">
+    <img class="hero-mark" src="assets/dimo-logo-full.webp" alt="" aria-hidden="true" />
+    <span class="eyebrow hero-eyebrow">Family Jewelers · Gainesville, Georgia · Est. 1318 Browns Bridge</span>
+    <h1 class="hero-title">Celebrate <em>love.</em></h1>
+    <div class="hero-divider"></div>
+    <p class="hero-subtitle">Bridal jewelry, custom pieces, and timepieces from master ateliers around the world — set, polished, and proven by a family of jewelers who measure every detail twice.</p>
+    <div class="hero-buttons">
+      <a class="btn btn-primary" href="#cta">Create the Perfect Piece <span class="arrow"></span></a>
+      <a class="btn btn-secondary" href="#scroll-section">View the Solitaire</a>
+    </div>
+    <div class="scroll-hint">
+      <span>Scroll</span>
+      <div class="scroll-line"></div>
+    </div>
+  </div>
+</section>
+
+<!-- Ticker -->
+<div class="ticker-wrap" aria-hidden="true">
+  <div class="ticker">
+    <!-- Items duplicated for seamless loop -->
+    <span class="ticker-item">Roberto Coin <span class="ticker-dot">·</span></span>
+    <span class="ticker-item">Le Vian <span class="ticker-dot">·</span></span>
+    <span class="ticker-item">Simon G <span class="ticker-dot">·</span></span>
+    <span class="ticker-item">FOPE <span class="ticker-dot">·</span></span>
+    <span class="ticker-item">John Hardy <span class="ticker-dot">·</span></span>
+    <span class="ticker-item">Annamaria Cammilli <span class="ticker-dot">·</span></span>
+    <span class="ticker-item">Chimento <span class="ticker-dot">·</span></span>
+    <span class="ticker-item">William Henry <span class="ticker-dot">·</span></span>
+    <span class="ticker-item">Omega <span class="ticker-dot">·</span></span>
+    <span class="ticker-item">Breitling <span class="ticker-dot">·</span></span>
+    <span class="ticker-item">Tag Heuer <span class="ticker-dot">·</span></span>
+    <span class="ticker-item">Dimo Collection <span class="ticker-dot">·</span></span>
+
+    <span class="ticker-item">Roberto Coin <span class="ticker-dot">·</span></span>
+    <span class="ticker-item">Le Vian <span class="ticker-dot">·</span></span>
+    <span class="ticker-item">Simon G <span class="ticker-dot">·</span></span>
+    <span class="ticker-item">FOPE <span class="ticker-dot">·</span></span>
+    <span class="ticker-item">John Hardy <span class="ticker-dot">·</span></span>
+    <span class="ticker-item">Annamaria Cammilli <span class="ticker-dot">·</span></span>
+    <span class="ticker-item">Chimento <span class="ticker-dot">·</span></span>
+    <span class="ticker-item">William Henry <span class="ticker-dot">·</span></span>
+    <span class="ticker-item">Omega <span class="ticker-dot">·</span></span>
+    <span class="ticker-item">Breitling <span class="ticker-dot">·</span></span>
+    <span class="ticker-item">Tag Heuer <span class="ticker-dot">·</span></span>
+    <span class="ticker-item">Dimo Collection <span class="ticker-dot">·</span></span>
+  </div>
+</div>
+
+<!-- Scroll-driven section label -->
+<div class="section-label">
+  <span class="eyebrow">Chapter One — The Solitaire</span>
+  <h2>Held in four prongs. Caught in <em>full light</em>.</h2>
+</div>
+
+<!-- Scroll animation -->
+<section class="scroll-animation" id="scroll-section">
+  <div class="scroll-sticky">
+    <canvas id="frameCanvas"></canvas>
+
+    <!-- Right-side rail -->
+    <div class="scroll-progress-rail" aria-hidden="true">
+      <div class="rail-tick" data-rail="0"></div>
+      <div class="rail-tick" data-rail="1"></div>
+      <div class="rail-tick" data-rail="2"></div>
+      <div class="rail-tick" data-rail="3"></div>
+      <div class="rail-tick" data-rail="4"></div>
+      <span class="rail-counter"><span id="railNum">01</span> / 05</span>
+    </div>
+
+    <!-- Annotation cards (mapped to motion arc) -->
+    <div class="annotation-card" data-show="0.04" data-hide="0.22">
+      <div class="card-number">01 — The Cut</div>
+      <h3 class="card-title">The Round <em>Brilliant</em></h3>
+      <p class="card-desc">Fifty-eight facets, hand-cut to mathematic ideal. The cut returns more light to the eye than any in jewelry, by design.</p>
+      <div class="card-stat">
+        <span class="card-stat-number">58</span>
+        <span class="card-stat-label">Cut Facets</span>
+      </div>
+    </div>
+
+    <div class="annotation-card" data-show="0.26" data-hide="0.44">
+      <div class="card-number">02 — The Setting</div>
+      <h3 class="card-title">Hand-Set <em>Solitaire</em></h3>
+      <p class="card-desc">Four hand-formed prongs cradle the diamond at the corners, raising it into the daylight — every claw seated by hand.</p>
+      <div class="card-stat">
+        <span class="card-stat-number">4</span>
+        <span class="card-stat-label">Cathedral Prongs</span>
+      </div>
+    </div>
+
+    <div class="annotation-card" data-show="0.48" data-hide="0.66">
+      <div class="card-number">03 — Architecture</div>
+      <h3 class="card-title">Cathedral <em>Profile</em></h3>
+      <p class="card-desc">From the side, the band rises in a quiet arch — the gallery lifted, the stone airborne. Strength shaped to disappear.</p>
+      <div class="card-stat">
+        <span class="card-stat-number">18<span class="suffix">K</span></span>
+        <span class="card-stat-label">White Gold</span>
+      </div>
+    </div>
+
+    <div class="annotation-card" data-show="0.70" data-hide="0.84">
+      <div class="card-number">04 — Composition</div>
+      <h3 class="card-title">Suspended in <em>Light</em></h3>
+      <p class="card-desc">Held mid-air. The proportions are settled — band, gallery, stone — finished by the hands of master jewelers in fourteen ateliers.</p>
+      <div class="card-stat">
+        <span class="card-stat-number">14</span>
+        <span class="card-stat-label">Designer Houses</span>
+      </div>
+    </div>
+
+    <div class="annotation-card" data-show="0.88" data-hide="1.01">
+      <div class="card-number">05 — The Moment</div>
+      <h3 class="card-title">Brilliance <em>Unleashed</em></h3>
+      <p class="card-desc">A piece arrives once. Built once. Worn for a lifetime — and the one after. This is the moment Dimo was made for.</p>
+      <div class="card-stat">
+        <span class="card-stat-number">∞</span>
+        <span class="card-stat-label">Forever Pledge</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- Specs -->
+<section id="specs">
+  <div class="features-head" style="padding:0 32px">
+    <span class="eyebrow">Detail in numbers</span>
+    <h2>The <em>quiet</em> mathematics</h2>
+  </div>
+  <div class="specs-grid">
+    <div class="spec-item" data-target="58" data-suffix="">
+      <span class="spec-number">0</span>
+      <div class="spec-divider"></div>
+      <span class="spec-label">Brilliant Facets</span>
+    </div>
+    <div class="spec-item" data-target="4" data-suffix="">
+      <span class="spec-number">0</span>
+      <div class="spec-divider"></div>
+      <span class="spec-label">Cathedral Prongs</span>
+    </div>
+    <div class="spec-item" data-target="18" data-suffix="K">
+      <span class="spec-number">0</span>
+      <div class="spec-divider"></div>
+      <span class="spec-label">White Gold</span>
+    </div>
+    <div class="spec-item" data-target="14" data-suffix="">
+      <span class="spec-number">0</span>
+      <div class="spec-divider"></div>
+      <span class="spec-label">Master Designer Houses</span>
+    </div>
+  </div>
+</section>
+
+<!-- Features -->
+<section id="features">
+  <div class="features-head">
+    <span class="eyebrow">The Atelier</span>
+    <h2>What we do, <em>still</em>, by hand.</h2>
+    <p>One Saturday at a time, in Gainesville. From sketch to setting — and through every birthday, anniversary, and chapter that follows.</p>
+  </div>
+
+  <div class="features-grid">
+    <div class="feature-card">
+      <span class="feature-num">— 01</span>
+      <h3>Custom <em>Design</em></h3>
+      <p>Bring an idea, a stone, or a sentiment. We sketch, refine, and craft — your piece, made for you, signed by hand.</p>
+    </div>
+    <div class="feature-card">
+      <span class="feature-num">— 02</span>
+      <h3>Heritage <em>Service</em></h3>
+      <p>Jewelry repair, watch repair, and engraving — generations of craft kept available the moment you bring it back through the door.</p>
+    </div>
+    <div class="feature-card">
+      <span class="feature-num">— 03</span>
+      <h3>Master <em>Houses</em></h3>
+      <p>Roberto Coin, Le Vian, Simon G, FOPE, John Hardy, Chimento — the world's finest ateliers, one cabinet, one Gainesville address.</p>
+    </div>
+<div class="feature-card">
+      <span class="feature-num">— 04</span>
+      <h3>Independent <em>Appraisal</em></h3>
+      <p>In-house appraisal services and gold buying — discreet, certified, and conducted by people who'll still be here next year.</p>
+    </div>
+  </div>
+</section>
+
+<!-- Collections Gallery -->
+<section id="collections">
+  <div class="collections-head">
+    <span class="eyebrow">The Collections</span>
+    <h2>Pieces from the <em>master houses</em></h2>
+    <p>Hand-selected from ateliers around the world — alongside our own custom work, each piece set, polished, and finished by people we know by name.</p>
+  </div>
+  <div class="collections-grid">
+    <a class="collection-tile tile-wide" href="#cta">
+      <img src="assets/celebrate-love.jpg" alt="Solitaire diamond engagement ring on stone" loading="lazy" />
+      <div class="collection-meta">
+        <span class="eyebrow">Bridal</span>
+        <h3>Celebrate <em>love.</em></h3>
+        <span class="collection-cta">Shop bridal</span>
+      </div>
+    </a>
+
+    <a class="collection-tile" href="#cta">
+      <img src="assets/roberto-coin-bracelets.jpg" alt="Roberto Coin bracelets and rings" loading="lazy" />
+      <div class="collection-meta">
+        <span class="eyebrow">Roberto Coin</span>
+        <h3>Italian <em>brilliance</em></h3>
+        <span class="collection-cta">Shop Roberto Coin</span>
+      </div>
+    </a>
+
+    <a class="collection-tile" href="#cta">
+      <img src="assets/womens-timepieces.jpg" alt="Women's luxury timepiece" loading="lazy" />
+      <div class="collection-meta">
+        <span class="eyebrow">Timepieces</span>
+        <h3>Hours, well <em>kept.</em></h3>
+        <span class="collection-cta">Shop timepieces</span>
+      </div>
+    </a>
+  </div>
+</section>
+
+<!-- Heritage Strip -->
+<section id="heritage-strip">
+  <img src="assets/dimo-storefront-detail.webp" alt="The Dimo Fine Jewelry storefront — Gainesville, Georgia" loading="lazy" />
+  <div class="heritage-overlay"></div>
+  <div class="heritage-content">
+    <span class="eyebrow">Visit the showroom</span>
+    <h2>1318 Browns Bridge — built to <em>outlast</em> the trends.</h2>
+    <p>An hour north of Atlanta. The doors open at ten, six days a week, and the people behind the counter are the people on the deed.</p>
+  </div>
+</section>
+
+<!-- Brand Partners -->
+<section id="brands">
+  <h3>Master Designer Houses, in residence</h3>
+  <div class="brands-row">
+    <span class="brand-name">Roberto Coin</span>
+    <span class="brand-name">Simon G</span>
+    <span class="brand-name">Le Vian</span>
+    <span class="brand-name">FOPE</span>
+    <span class="brand-name">John Hardy</span>
+    <span class="brand-name">Chimento</span>
+    <span class="brand-name">Annamaria Cammilli</span>
+    <span class="brand-name">Scott Kay</span>
+    <span class="brand-name">William Henry</span>
+    <span class="brand-name">Pierre Rossa</span>
+    <span class="brand-name">Emma Rose</span>
+    <span class="brand-name">Dimo Collection</span>
+  </div>
+</section>
+
+<!-- CTA -->
+<section id="cta">
+  <div class="cta-bg-orb"></div>
+  <div class="cta-content">
+    <span class="eyebrow">Begin a piece</span>
+    <h2>Your <em>forever</em><br />begins on a Saturday.</h2>
+    <p>Step into our showroom in Gainesville, or start a conversation. We're patient, we listen, and we love the questions you haven't asked yet.</p>
+    <div class="cta-buttons">
+      <a class="btn btn-primary" href="tel:7705339070">Create the Perfect Piece <span class="arrow"></span></a>
+      <a class="btn btn-secondary" href="#">Explore Bridal</a>
+    </div>
+    <div class="cta-meta">
+      <span>1318 Browns Bridge Rd</span>
+      <span>Gainesville, GA 30501</span>
+      <a href="tel:7705339070">770 · 533 · 9070</a>
+      <span>Mon–Sat · 10–6</span>
+    </div>
+  </div>
+</section>
+
+<!-- Footer -->
+<footer>
+  <div class="footer-inner">
+    <div class="footer-brand">
+      <img src="assets/dimo-logo-full.webp" alt="Dimo Fine Jewelry" />
+      <p>Family-owned fine jeweler in Gainesville, Georgia. Specializing in luxury timepieces, bridal jewelry, and custom designs from master ateliers around the world.</p>
+    </div>
+    <div class="footer-col">
+      <h4>Visit</h4>
+      <p>1318 Browns Bridge Road</p>
+      <p>Gainesville, GA 30501</p>
+      <p style="margin-top:12px">Mon–Sat · 10am – 6pm</p>
+    </div>
+    <div class="footer-col">
+      <h4>Connect</h4>
+      <ul>
+        <li><a href="tel:7705339070">770.533.9070</a></li>
+        <li><a href="#">Appointments</a></li>
+        <li><a href="#">Newsletter</a></li>
+      </ul>
+    </div>
+    <div class="footer-col">
+      <h4>Atelier</h4>
+      <ul>
+        <li><a href="#">Bridal</a></li>
+        <li><a href="#">Timepieces</a></li>
+        <li><a href="#">Custom Design</a></li>
+        <li><a href="#">Repair · Engraving · Appraisal</a></li>
+      </ul>
+    </div>
+  </div>
+  <div class="footer-bottom">
+    <span>© 2026 Dimo Fine Jewelry · Family Owned</span>
+    <span>Premier Jeweler in Georgia</span>
+  </div>
+</footer>
+
+<script>
+(() => {
+  "use strict";
+
+  /* ---------- FRAME COUNT ---------- */
+  const FRAME_COUNT = 193;
+  const FRAME_PATH = (i) => `frames/frame_${String(i).padStart(4, "0")}.jpg`;
+
+  /* ---------- ELEMENTS ---------- */
+  const loader = document.getElementById("loader");
+  const loaderBar = document.getElementById("loaderBar");
+  const scrollProgress = document.getElementById("scrollProgress");
+  const navbar = document.getElementById("navbar");
+  const canvas = document.getElementById("frameCanvas");
+  const ctx = canvas.getContext("2d");
+  const scrollSection = document.getElementById("scroll-section");
+  const cards = document.querySelectorAll(".annotation-card");
+  const railTicks = document.querySelectorAll(".rail-tick");
+  const railNum = document.getElementById("railNum");
+
+  /* ---------- FRAME PRELOAD ---------- */
+  const frames = [];
+  let loaded = 0;
+  let allLoaded = false;
+
+  for (let i = 1; i <= FRAME_COUNT; i++) {
+    const img = new Image();
+    img.src = FRAME_PATH(i);
+    img.onload = () => {
+      loaded++;
+      const pct = (loaded / FRAME_COUNT) * 100;
+      loaderBar.style.width = pct + "%";
+      if (loaded === FRAME_COUNT) onAllLoaded();
+    };
+    img.onerror = () => {
+      loaded++;
+      if (loaded === FRAME_COUNT) onAllLoaded();
+    };
+    frames.push(img);
+  }
+
+  function onAllLoaded() {
+    if (allLoaded) return;
+    allLoaded = true;
+    setTimeout(() => {
+      loader.style.opacity = "0";
+      setTimeout(() => loader.style.display = "none", 750);
+    }, 250);
+    drawFrame(0);
+  }
+
+  /* ---------- CANVAS ---------- */
+  function resizeCanvas() {
+    const dpr = Math.min(window.devicePixelRatio || 1, 2);
+    canvas.width = window.innerWidth * dpr;
+    canvas.height = window.innerHeight * dpr;
+    canvas.style.width = window.innerWidth + "px";
+    canvas.style.height = window.innerHeight + "px";
+    ctx.setTransform(1, 0, 0, 1, 0, 0);
+    if (currentFrame >= 0) drawFrame(currentFrame);
+  }
+
+  let currentFrame = -1;
+
+  function drawFrame(idx) {
+    const img = frames[idx];
+    if (!img || !img.complete || img.naturalWidth === 0) return;
+
+    const cw = canvas.width;
+    const ch = canvas.height;
+    ctx.fillStyle = "#ffffff";
+    ctx.fillRect(0, 0, cw, ch);
+
+    const imgRatio = img.naturalWidth / img.naturalHeight;
+    const canvasRatio = cw / ch;
+    let drawW, drawH, drawX, drawY;
+
+    if (window.innerWidth > 768) {
+      // Desktop: cover
+      if (canvasRatio > imgRatio) {
+        drawW = cw;
+        drawH = cw / imgRatio;
+      } else {
+        drawH = ch;
+        drawW = ch * imgRatio;
+      }
+    } else {
+      // Mobile: zoomed contain
+      const zoom = 1.18;
+      if (canvasRatio > imgRatio) {
+        drawH = ch * zoom;
+        drawW = drawH * imgRatio;
+      } else {
+        drawW = cw * zoom;
+        drawH = drawW / imgRatio;
+      }
+    }
+
+    drawX = (cw - drawW) / 2;
+    drawY = (ch - drawH) / 2;
+    ctx.drawImage(img, drawX, drawY, drawW, drawH);
+  }
+
+  /* ---------- SCROLL → FRAME / CARDS / PROGRESS ----------
+     Smooth scroll: cards fade in/out as you pass through their
+     ranges, but the page never freezes — the user can scroll
+     straight through the entire ring sequence without interruption. */
+  const ZONES = Array.from(cards).map((card) => ({
+    show: parseFloat(card.dataset.show),
+    hide: parseFloat(card.dataset.hide),
+  }));
+  let lastVisibleCardIdx = -1;
+
+  function updateCards(progress) {
+    let activeIdx = -1;
+    cards.forEach((card, i) => {
+      const z = ZONES[i];
+      const visible = progress >= z.show && progress <= z.hide;
+      card.classList.toggle("visible", visible);
+      if (visible) activeIdx = i;
+    });
+
+    if (activeIdx !== lastVisibleCardIdx) {
+      lastVisibleCardIdx = activeIdx;
+      railTicks.forEach((t, i) => t.classList.toggle("active", i === activeIdx));
+      if (activeIdx >= 0 && railNum) {
+        railNum.textContent = String(activeIdx + 1).padStart(2, "0");
+      }
+    }
+  }
+
+  let ticking = false;
+  function onScroll() {
+    if (ticking) return;
+    ticking = true;
+    requestAnimationFrame(() => {
+      const rect = scrollSection.getBoundingClientRect();
+      const scrollableH = scrollSection.offsetHeight - window.innerHeight;
+      const progress = Math.min(1, Math.max(0, -rect.top / scrollableH));
+      const frameIdx = Math.min(FRAME_COUNT - 1, Math.floor(progress * FRAME_COUNT));
+
+      if (frameIdx !== currentFrame) {
+        currentFrame = frameIdx;
+        drawFrame(frameIdx);
+      }
+      updateCards(progress);
+
+      // global scroll progress
+      const totalScroll = (window.scrollY / (document.documentElement.scrollHeight - window.innerHeight)) * 100;
+      scrollProgress.style.width = totalScroll + "%";
+
+      // navbar pill
+      navbar.classList.toggle("nav-scrolled", window.scrollY > 80);
+
+      ticking = false;
+    });
+  }
+
+  window.addEventListener("scroll", onScroll, { passive: true });
+  window.addEventListener("resize", resizeCanvas);
+
+  /* ---------- SPECS COUNT-UP ---------- */
+  function easeOutExpo(t) { return t === 1 ? 1 : 1 - Math.pow(2, -10 * t); }
+
+  function countUp(item) {
+    const target = parseFloat(item.dataset.target);
+    const suffix = item.dataset.suffix || "";
+    const numEl = item.querySelector(".spec-number");
+    const duration = 1800;
+    const start = performance.now();
+
+    numEl.classList.add("counting");
+
+    function update(now) {
+      const elapsed = now - start;
+      const t = Math.min(elapsed / duration, 1);
+      const eased = easeOutExpo(t);
+      const current = eased * target;
+
+      const valueText = (target % 1 === 0) ? Math.floor(current) : current.toFixed(1);
+      numEl.innerHTML = valueText + (suffix ? `<span class="suffix">${suffix}</span>` : "");
+
+      if (t < 1) requestAnimationFrame(update);
+      else {
+        numEl.innerHTML = target + (suffix ? `<span class="suffix">${suffix}</span>` : "");
+        numEl.classList.remove("counting");
+      }
+    }
+    requestAnimationFrame(update);
+  }
+
+  const specObserver = new IntersectionObserver((entries) => {
+    entries.forEach((entry) => {
+      if (entry.isIntersecting) {
+        const items = entry.target.querySelectorAll(".spec-item");
+        items.forEach((item, i) => setTimeout(() => countUp(item), i * 220));
+        specObserver.unobserve(entry.target);
+      }
+    });
+  }, { threshold: 0.4 });
+
+  specObserver.observe(document.getElementById("specs"));
+
+  /* ---------- INIT ---------- */
+  resizeCanvas();
+  onScroll();
+})();
+</script>
+</body>
+</html>
