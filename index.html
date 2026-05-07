@@ -1869,30 +1869,24 @@
     const canvasRatio = cw / ch;
     let drawW, drawH, drawX, drawY;
 
-    if (window.innerWidth > 768) {
-      // Desktop: cover
-      if (canvasRatio > imgRatio) {
-        drawW = cw;
-        drawH = cw / imgRatio;
-      } else {
-        drawH = ch;
-        drawW = ch * imgRatio;
-      }
+    // Cover-fit on every device: image fully fills the canvas so the
+    // image edge is never visible against the canvas fill — eliminates
+    // the "frame showing through" seam on portrait mobile.
+    if (canvasRatio > imgRatio) {
+      drawW = cw;
+      drawH = cw / imgRatio;
     } else {
-      // Mobile: zoomed contain
-      const zoom = 1.18;
-      if (canvasRatio > imgRatio) {
-        drawH = ch * zoom;
-        drawW = drawH * imgRatio;
-      } else {
-        drawW = cw * zoom;
-        drawH = drawW / imgRatio;
-      }
+      drawH = ch;
+      drawW = ch * imgRatio;
     }
 
     drawX = (cw - drawW) / 2;
     drawY = (ch - drawH) / 2;
-    ctx.drawImage(img, drawX, drawY, drawW, drawH);
+
+    // 1px overdraw on every edge eliminates sub-pixel rounding gaps that
+    // can produce a faint seam at high devicePixelRatio.
+    ctx.drawImage(img, Math.floor(drawX) - 1, Math.floor(drawY) - 1,
+                       Math.ceil(drawW) + 2, Math.ceil(drawH) + 2);
   }
 
   /* ---------- SCROLL → FRAME / CARDS / PROGRESS ----------
