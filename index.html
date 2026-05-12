@@ -1752,13 +1752,38 @@
 
   /* ---------- FRAME PRELOAD ---------- */
   const frames = [];
+  /* Per-frame corner color so the canvas fill blends with the image's
+     real off-white edge — no visible seam where the image meets the
+     canvas margin on mobile. */
+  const fillColors = new Array(FRAME_COUNT).fill("#ffffff");
   let loaded = 0;
   let allLoaded = false;
+
+  const _sampleCanvas = document.createElement("canvas");
+  _sampleCanvas.width = 1; _sampleCanvas.height = 1;
+  const _sampleCtx = _sampleCanvas.getContext("2d", { willReadFrequently: true });
+  function sampleCornerColor(img) {
+    try {
+      const w = img.naturalWidth, h = img.naturalHeight;
+      const pts = [[0, 0], [w - 1, 0], [0, h - 1], [w - 1, h - 1]];
+      let r = 0, g = 0, b = 0;
+      for (const [x, y] of pts) {
+        _sampleCtx.clearRect(0, 0, 1, 1);
+        _sampleCtx.drawImage(img, x, y, 1, 1, 0, 0, 1, 1);
+        const d = _sampleCtx.getImageData(0, 0, 1, 1).data;
+        r += d[0]; g += d[1]; b += d[2];
+      }
+      return "rgb(" + Math.round(r / 4) + "," + Math.round(g / 4) + "," + Math.round(b / 4) + ")";
+    } catch (e) {
+      return "#ffffff";
+    }
+  }
 
   for (let i = 1; i <= FRAME_COUNT; i++) {
     const img = new Image();
     img.src = FRAME_PATH(i);
     img.onload = () => {
+      fillColors[i - 1] = sampleCornerColor(img);
       loaded++;
       const pct = (loaded / FRAME_COUNT) * 100;
       loaderBar.style.width = pct + "%";
@@ -1800,22 +1825,32 @@
 
     const cw = canvas.width;
     const ch = canvas.height;
-    ctx.fillStyle = "#ffffff";
+    /* Per-frame fill color (sampled corner average) — matches the image's
+       real off-white edge so the margin around a scaled-down image reads
+       as continuous, not as a visible rectangle seam. */
+    ctx.fillStyle = fillColors[idx] || "#ffffff";
     ctx.fillRect(0, 0, cw, ch);
 
     const imgRatio = img.naturalWidth / img.naturalHeight;
     const canvasRatio = cw / ch;
     let drawW, drawH, drawX, drawY;
 
-    // Cover-fit on every device: image fully fills the canvas so the
-    // image edge is never visible against the canvas fill — eliminates
-    // the "frame showing through" seam on portrait mobile.
+    // Cover-fit baseline.
     if (canvasRatio > imgRatio) {
       drawW = cw;
       drawH = cw / imgRatio;
     } else {
       drawH = ch;
       drawW = ch * imgRatio;
+    }
+
+    /* On mobile, scale the image down so the ring breathes and you can
+       see more of the band. The sampled-corner fill above keeps the
+       margin invisible. */
+    if (window.innerWidth <= 768) {
+      const mobileScale = 0.78;
+      drawW *= mobileScale;
+      drawH *= mobileScale;
     }
 
     drawX = (cw - drawW) / 2;
