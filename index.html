@@ -1239,6 +1239,203 @@
   }
   .brand-name:hover { color: var(--text); transform: translateY(-2px); }
 
+  /* ---------- HERITAGE ---------- */
+  #heritage {
+    padding: 140px 32px 130px;
+    background: var(--bg);
+    border-top: 1px solid var(--border);
+    position: relative;
+  }
+  .heritage-intro {
+    max-width: 980px;
+    margin: 0 auto 70px;
+    text-align: center;
+  }
+  .heritage-intro h2 {
+    font-size: clamp(2.8rem, 6vw, 5.2rem);
+    line-height: 1.0;
+    letter-spacing: -0.025em;
+    font-weight: 400;
+    margin-top: 22px;
+    color: var(--text);
+  }
+  .heritage-intro h2 em {
+    font-style: italic;
+    font-weight: 300;
+    color: var(--accent-deep);
+  }
+  .heritage-lead {
+    max-width: 680px;
+    margin: 28px auto 0;
+    font-size: 1.18rem;
+    line-height: 1.65;
+    color: var(--text-2);
+  }
+
+  .heritage-photo {
+    max-width: 1180px;
+    margin: 0 auto 80px;
+    padding: 0;
+    position: relative;
+  }
+  .heritage-photo img {
+    width: 100%;
+    display: block;
+    filter: contrast(1.03);
+    border: 1px solid var(--border);
+  }
+  .heritage-photo figcaption {
+    font-family: var(--mono);
+    font-size: 0.66rem;
+    text-transform: uppercase;
+    letter-spacing: 0.28em;
+    color: var(--text-3);
+    text-align: center;
+    margin-top: 22px;
+  }
+
+  .heritage-stats {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    max-width: 1180px;
+    margin: 0 auto 100px;
+    border-left: 1px solid var(--border);
+    border-top: 1px solid var(--border);
+  }
+  .hs-item {
+    text-align: center;
+    padding: 48px 24px;
+    border-right: 1px solid var(--border);
+    border-bottom: 1px solid var(--border);
+    background: var(--bg);
+    transition: background 0.4s var(--ease);
+  }
+  .hs-item:hover { background: var(--bg-soft); }
+  .hs-num {
+    display: block;
+    font-family: var(--serif);
+    font-size: clamp(2.6rem, 5vw, 4rem);
+    font-weight: 400;
+    line-height: 1;
+    letter-spacing: -0.03em;
+    color: var(--text);
+  }
+  .hs-suffix {
+    font-size: 0.42em;
+    vertical-align: super;
+    color: var(--accent-deep);
+    margin-left: 1px;
+    font-weight: 400;
+  }
+  .hs-rule {
+    display: block;
+    width: 26px;
+    height: 1px;
+    background: var(--accent);
+    margin: 18px auto 12px;
+  }
+  .hs-lbl {
+    display: block;
+    font-family: var(--mono);
+    font-size: 0.66rem;
+    text-transform: uppercase;
+    letter-spacing: 0.22em;
+    color: var(--text-3);
+  }
+
+  .heritage-body {
+    max-width: 980px;
+    margin: 0 auto 90px;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    column-gap: 56px;
+    row-gap: 24px;
+  }
+  .heritage-body p {
+    font-size: 1.05rem;
+    color: var(--text-2);
+    line-height: 1.75;
+    margin: 0;
+  }
+
+  .heritage-quote {
+    max-width: 900px;
+    margin: 0 auto 90px;
+    padding: 64px 32px;
+    border-top: 1px solid var(--border);
+    border-bottom: 1px solid var(--border);
+    text-align: center;
+    position: relative;
+  }
+  .heritage-quote::before {
+    content: "\201C";
+    position: absolute;
+    top: 12px;
+    left: 50%;
+    transform: translateX(-50%);
+    font-family: var(--serif);
+    font-size: 3.4rem;
+    color: var(--accent);
+    line-height: 1;
+  }
+  .heritage-quote p {
+    font-family: var(--serif);
+    font-size: clamp(1.45rem, 2.6vw, 2.2rem);
+    font-style: italic;
+    font-weight: 300;
+    color: var(--text);
+    line-height: 1.32;
+    margin: 0;
+    letter-spacing: -0.005em;
+  }
+  .heritage-quote em {
+    color: var(--accent-deep);
+    font-weight: 400;
+  }
+
+  .heritage-outro {
+    max-width: 720px;
+    margin: 0 auto;
+    text-align: center;
+  }
+  .heritage-outro p:first-child {
+    font-size: 1.08rem;
+    color: var(--text-2);
+    line-height: 1.7;
+    margin: 0 0 48px;
+  }
+  .heritage-signoff {
+    font-family: var(--serif);
+    font-size: clamp(1.6rem, 3vw, 2.2rem);
+    font-style: italic;
+    font-weight: 400;
+    color: var(--text);
+    letter-spacing: -0.01em;
+    margin: 0;
+    line-height: 1.2;
+  }
+  .heritage-signoff em {
+    font-style: italic;
+    color: var(--accent-deep);
+  }
+  .heritage-signoff-credit {
+    margin-top: 18px;
+    font-family: var(--mono);
+    font-size: 0.7rem;
+    text-transform: uppercase;
+    letter-spacing: 0.28em;
+    color: var(--text-3);
+  }
+
+  @media (max-width: 768px) {
+    #heritage { padding: 100px 24px 90px; }
+    .heritage-stats { grid-template-columns: 1fr 1fr; }
+    .hs-item { padding: 36px 18px; }
+    .heritage-body { grid-template-columns: 1fr; column-gap: 0; }
+    .heritage-quote { padding: 48px 20px; }
+    .heritage-quote::before { font-size: 2.6rem; top: 8px; }
+  }
+
   /* ---------- CTA ---------- */
   #cta {
     position: relative;
@@ -1529,7 +1726,7 @@
           <span class="dropdown-eyebrow">In-House</span>
           <ul class="dropdown-list">
             <li><a href="#">Custom Design</a></li>
-            <li><a href="#">Heritage Services</a></li>
+            <li><a href="#heritage">Heritage</a></li>
             <li><a href="#">Jewelry Repair</a></li>
             <li><a href="#">Watch Repair</a></li>
             <li><a href="#">Engraving</a></li>
@@ -1599,7 +1796,7 @@
       <span class="mobile-menu-eyebrow">Services</span>
       <ul>
         <li><a class="mm-link" href="#">Custom Design</a></li>
-        <li><a class="mm-link" href="#">Heritage Services</a></li>
+        <li><a class="mm-link" href="#heritage">Heritage</a></li>
         <li><a class="mm-link" href="#">Jewelry Repair</a></li>
         <li><a class="mm-link" href="#">Watch Repair</a></li>
         <li><a class="mm-link" href="#">Engraving</a></li>
@@ -1868,6 +2065,58 @@
     <span class="brand-name">Pierre Rossa</span>
     <span class="brand-name">Emma Rose</span>
     <span class="brand-name">Dimo Collection</span>
+  </div>
+</section>
+
+<!-- Heritage -->
+<section id="heritage">
+  <div class="heritage-intro">
+    <span class="eyebrow">Our Heritage · Est. 1996</span>
+    <h2>Three generations,<br/>one <em>family.</em></h2>
+    <p class="heritage-lead">Established in Georgia in 1996, Dimo Fine Jewelry is a family-run business — now in its third generation of serving its neighbors across Georgia.</p>
+  </div>
+
+  <figure class="heritage-photo">
+    <img src="assets/dimo-family.webp" alt="The Dimo family standing behind their jewelry cases at the Gainesville, Georgia showroom" loading="lazy" />
+    <figcaption>The Dimo family · Gainesville, Georgia</figcaption>
+  </figure>
+
+  <div class="heritage-stats">
+    <div class="hs-item">
+      <span class="hs-num">1996</span>
+      <span class="hs-rule"></span>
+      <span class="hs-lbl">Founded</span>
+    </div>
+    <div class="hs-item">
+      <span class="hs-num">3<span class="hs-suffix">rd</span></span>
+      <span class="hs-rule"></span>
+      <span class="hs-lbl">Generation</span>
+    </div>
+    <div class="hs-item">
+      <span class="hs-num">150<span class="hs-suffix">+</span></span>
+      <span class="hs-rule"></span>
+      <span class="hs-lbl">Years Combined</span>
+    </div>
+    <div class="hs-item">
+      <span class="hs-num">1</span>
+      <span class="hs-rule"></span>
+      <span class="hs-lbl">Family</span>
+    </div>
+  </div>
+
+  <div class="heritage-body">
+    <p>With more than 150 years of combined experience and expertise, it is not surprising that Dimo has been invited to be a part of countless weddings, birthdays, anniversaries, graduations, and other life-changing events.</p>
+    <p>As we learn the stories of our customers, we have the privilege of engaging in the adventure of singling out the choicest brands and designs for the perfect, essential piece for each occasion.</p>
+  </div>
+
+  <blockquote class="heritage-quote">
+    <p>Just as we built our store to last from generation to generation, we work with our customers to select the best piece to last <em>beyond their lifetime.</em></p>
+  </blockquote>
+
+  <div class="heritage-outro">
+    <p>We look forward with great anticipation to joining in more life stories as we grow and meet new customers seeking to create lasting memories and lifetime treasures.</p>
+    <p class="heritage-signoff"><em>Only the best. Nothing less.</em></p>
+    <p class="heritage-signoff-credit">— The Dimo Family</p>
   </div>
 </section>
 
