@@ -365,6 +365,144 @@
   }
   #navbar.nav-scrolled .has-dropdown > a::before { opacity: 0.5; }
 
+  /* ---------- HAMBURGER + MOBILE MENU ---------- */
+  .nav-hamburger {
+    display: none;
+    position: relative;
+    width: 44px;
+    height: 44px;
+    padding: 10px;
+    background: transparent;
+    border: none;
+    cursor: pointer;
+    z-index: 1200;
+  }
+  .nav-hamburger span {
+    display: block;
+    width: 22px;
+    height: 1.5px;
+    margin: 0 auto;
+    background: #ffffff;
+    box-shadow: 0 1px 6px rgba(0, 0, 0, 0.3);
+    transform-origin: center;
+    transition: transform 0.4s var(--ease), opacity 0.25s ease, background-color 0.3s ease;
+  }
+  .nav-hamburger span + span { margin-top: 6px; }
+  #navbar.nav-scrolled .nav-hamburger span {
+    background: var(--text);
+    box-shadow: none;
+  }
+  .nav-hamburger.is-open span {
+    background: var(--text);
+    box-shadow: none;
+  }
+  .nav-hamburger.is-open span:nth-child(1) { transform: translateY(7.5px) rotate(45deg); }
+  .nav-hamburger.is-open span:nth-child(2) { opacity: 0; transform: scaleX(0.4); }
+  .nav-hamburger.is-open span:nth-child(3) { transform: translateY(-7.5px) rotate(-45deg); }
+
+  .mobile-menu {
+    display: none;
+    position: fixed;
+    inset: 0;
+    background: var(--bg);
+    z-index: 990; /* below navbar (1000) so hamburger stays clickable */
+    opacity: 0;
+    visibility: hidden;
+    transform: translateY(-8px);
+    transition: opacity 0.4s var(--ease), visibility 0.4s var(--ease), transform 0.4s var(--ease);
+  }
+  .mobile-menu.is-open {
+    opacity: 1;
+    visibility: visible;
+    transform: translateY(0);
+  }
+  .mobile-menu-scroll {
+    position: absolute;
+    inset: 0;
+    overflow-y: auto;
+    -webkit-overflow-scrolling: touch;
+    padding: 120px 28px 60px;
+    display: flex;
+    flex-direction: column;
+    gap: 38px;
+  }
+  .mobile-menu-eyebrow {
+    display: block;
+    font-family: var(--mono);
+    font-size: 0.62rem;
+    text-transform: uppercase;
+    letter-spacing: 0.3em;
+    color: var(--text-3);
+    font-weight: 500;
+    margin-bottom: 18px;
+    padding-bottom: 14px;
+    border-bottom: 1px solid var(--border);
+  }
+  .mobile-menu-group ul {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    column-gap: 24px;
+    row-gap: 4px;
+  }
+  .mm-link {
+    font-family: var(--serif);
+    font-size: 1.1rem;
+    font-weight: 400;
+    color: var(--text);
+    display: block;
+    padding: 8px 0;
+    transition: color 0.2s ease, padding-left 0.25s var(--ease);
+    position: relative;
+  }
+  .mm-link:active { color: var(--accent-deep); }
+  .mm-link-large {
+    grid-column: 1 / -1;
+    font-size: 1.5rem;
+    line-height: 1.15;
+    padding: 12px 0 6px;
+  }
+  .mm-link-large em {
+    font-style: italic;
+    color: var(--accent-deep);
+  }
+  .mobile-menu-footer {
+    margin-top: 16px;
+    padding-top: 32px;
+    border-top: 1px solid var(--border);
+  }
+  .mobile-menu-footer p {
+    font-size: 0.95rem;
+    color: var(--text-2);
+    margin: 0 0 4px;
+    line-height: 1.5;
+  }
+  .mm-phone {
+    display: inline-block;
+    margin-top: 22px;
+    font-family: var(--mono);
+    font-size: 0.7rem;
+    text-transform: uppercase;
+    letter-spacing: 0.22em;
+    color: var(--text);
+    padding: 14px 26px;
+    border: 1px solid var(--text);
+    transition: all 0.3s ease;
+  }
+  .mm-phone:active { background: var(--text); color: var(--bg); }
+  body.menu-open { overflow: hidden; touch-action: none; }
+
+  @media (max-width: 768px) {
+    .nav-hamburger { display: block; }
+    .mobile-menu { display: block; }
+  }
+  /* Very small screens: stack the brand list into one column */
+  @media (max-width: 400px) {
+    .mobile-menu-group ul { grid-template-columns: 1fr; }
+  }
+
   /* ---------- HERO ---------- */
   #hero {
     position: relative;
@@ -1402,8 +1540,83 @@
       </li>
       <li><a href="#cta" class="nav-cta">Contact</a></li>
     </ul>
+    <button class="nav-hamburger" id="navHamburger" aria-label="Open menu" aria-expanded="false" aria-controls="mobileMenu">
+      <span></span>
+      <span></span>
+      <span></span>
+    </button>
   </div>
 </nav>
+
+<!-- Mobile menu (full-screen overlay, populated to mirror the navbar dropdowns) -->
+<div class="mobile-menu" id="mobileMenu" aria-hidden="true">
+  <div class="mobile-menu-scroll">
+    <div class="mobile-menu-group">
+      <span class="mobile-menu-eyebrow">Jewelry</span>
+      <ul>
+        <li><a class="mm-link" href="#">Roberto Coin</a></li>
+        <li><a class="mm-link" href="#">Le Vian</a></li>
+        <li><a class="mm-link" href="#">Simon G</a></li>
+        <li><a class="mm-link" href="#">FOPE</a></li>
+        <li><a class="mm-link" href="#">John Hardy</a></li>
+        <li><a class="mm-link" href="#">Chimento</a></li>
+        <li><a class="mm-link" href="#">Annamaria Cammilli</a></li>
+        <li><a class="mm-link" href="#">Scott Kay</a></li>
+        <li><a class="mm-link" href="#">William Henry</a></li>
+        <li><a class="mm-link" href="#">Pierre Rossa</a></li>
+        <li><a class="mm-link" href="#">Emma Rose</a></li>
+        <li><a class="mm-link" href="#">Dimo Collection</a></li>
+      </ul>
+    </div>
+
+    <div class="mobile-menu-group">
+      <span class="mobile-menu-eyebrow">Timepieces</span>
+      <ul>
+        <li><a class="mm-link" href="#">Omega</a></li>
+        <li><a class="mm-link" href="#">Breitling</a></li>
+        <li><a class="mm-link" href="#">Tag Heuer</a></li>
+        <li><a class="mm-link" href="#">Raymond Weil</a></li>
+        <li><a class="mm-link" href="#">Michele</a></li>
+        <li><a class="mm-link" href="#">Luminox</a></li>
+        <li><a class="mm-link" href="#">Victorinox Swiss Army</a></li>
+        <li><a class="mm-link" href="#">Seiko</a></li>
+        <li><a class="mm-link" href="#">Citizen</a></li>
+        <li><a class="mm-link" href="#">Pre-Owned Collection</a></li>
+      </ul>
+    </div>
+
+    <div class="mobile-menu-group">
+      <span class="mobile-menu-eyebrow">Bridal</span>
+      <ul>
+        <li><a class="mm-link mm-link-large" href="#scroll-section">The Solitaire <em>animation</em></a></li>
+        <li><a class="mm-link" href="#features">Engagement Rings</a></li>
+        <li><a class="mm-link" href="#features">Wedding Bands</a></li>
+        <li><a class="mm-link" href="#features">Certified Diamonds</a></li>
+      </ul>
+    </div>
+
+    <div class="mobile-menu-group">
+      <span class="mobile-menu-eyebrow">Services</span>
+      <ul>
+        <li><a class="mm-link" href="#">Custom Design</a></li>
+        <li><a class="mm-link" href="#">Heritage Services</a></li>
+        <li><a class="mm-link" href="#">Jewelry Repair</a></li>
+        <li><a class="mm-link" href="#">Watch Repair</a></li>
+        <li><a class="mm-link" href="#">Engraving</a></li>
+        <li><a class="mm-link" href="#">Appraisals</a></li>
+        <li><a class="mm-link" href="#">We Buy Gold</a></li>
+      </ul>
+    </div>
+
+    <div class="mobile-menu-footer">
+      <span class="mobile-menu-eyebrow">Visit</span>
+      <p>1318 Browns Bridge Road</p>
+      <p>Gainesville, GA 30501</p>
+      <p>Mon – Sat · 10am – 6pm</p>
+      <a href="tel:7705339070" class="mm-phone">770 · 533 · 9070</a>
+    </div>
+  </div>
+</div>
 
 <!-- Hero -->
 <section id="hero">
@@ -1986,6 +2199,49 @@
   }, { threshold: 0.4 });
 
   specObserver.observe(document.getElementById("specs"));
+
+  /* ---------- HAMBURGER / MOBILE MENU ---------- */
+  const hamburger = document.getElementById("navHamburger");
+  const mobileMenu = document.getElementById("mobileMenu");
+
+  function setMenuOpen(open) {
+    if (!hamburger || !mobileMenu) return;
+    hamburger.classList.toggle("is-open", open);
+    hamburger.setAttribute("aria-expanded", String(open));
+    mobileMenu.classList.toggle("is-open", open);
+    mobileMenu.setAttribute("aria-hidden", String(!open));
+    document.body.classList.toggle("menu-open", open);
+  }
+
+  if (hamburger && mobileMenu) {
+    hamburger.addEventListener("click", () => {
+      setMenuOpen(!mobileMenu.classList.contains("is-open"));
+    });
+
+    // Tap a link in the menu → close
+    mobileMenu.addEventListener("click", (e) => {
+      const a = e.target.closest("a");
+      if (a) setMenuOpen(false);
+    });
+
+    // Escape → close
+    document.addEventListener("keydown", (e) => {
+      if (e.key === "Escape" && mobileMenu.classList.contains("is-open")) {
+        setMenuOpen(false);
+      }
+    });
+
+    // Resize past mobile breakpoint → close
+    let _mqT = null;
+    window.addEventListener("resize", () => {
+      clearTimeout(_mqT);
+      _mqT = setTimeout(() => {
+        if (window.innerWidth > 768 && mobileMenu.classList.contains("is-open")) {
+          setMenuOpen(false);
+        }
+      }, 120);
+    });
+  }
 
   /* ---------- INIT ---------- */
   resizeCanvas();
