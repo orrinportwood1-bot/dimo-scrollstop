@@ -1272,19 +1272,19 @@
     color: var(--text-2);
   }
 
-  .heritage-photo {
+  .heritage-figure {
     max-width: 1180px;
-    margin: 0 auto 80px;
+    margin: 0 auto 70px;
     padding: 0;
     position: relative;
   }
-  .heritage-photo img {
+  .heritage-figure img {
     width: 100%;
     display: block;
     filter: contrast(1.03);
     border: 1px solid var(--border);
   }
-  .heritage-photo figcaption {
+  .heritage-figure figcaption {
     font-family: var(--mono);
     font-size: 0.66rem;
     text-transform: uppercase;
@@ -1292,6 +1292,14 @@
     color: var(--text-3);
     text-align: center;
     margin-top: 22px;
+  }
+  /* The building wears a slightly cooler tone — pairs with the
+     warmer family portrait below. */
+  .heritage-building img {
+    filter: contrast(1.04) brightness(1.02) saturate(0.96);
+  }
+  .heritage-photo {
+    margin-bottom: 80px;
   }
 
   .heritage-stats {
@@ -2076,7 +2084,12 @@
     <p class="heritage-lead">Established in Georgia in 1996, Dimo Fine Jewelry is a family-run business — now in its third generation of serving its neighbors across Georgia.</p>
   </div>
 
-  <figure class="heritage-photo">
+  <figure class="heritage-figure heritage-building">
+    <img src="assets/dimo-hero-building.webp" alt="The Dimo Fine Jewelry building — a limestone palazzo at 1318 Browns Bridge Road, Gainesville, Georgia" loading="lazy" />
+    <figcaption>Built to outlast the trends · 1318 Browns Bridge Road</figcaption>
+  </figure>
+
+  <figure class="heritage-figure heritage-photo">
     <img src="assets/dimo-family.webp" alt="The Dimo family standing behind their jewelry cases at the Gainesville, Georgia showroom" loading="lazy" />
     <figcaption>The Dimo family · Gainesville, Georgia</figcaption>
   </figure>
